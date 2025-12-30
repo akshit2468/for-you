@@ -12,15 +12,32 @@
         }
 
         body {
-            font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            font-family: 'Roboto', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
             overflow-y: auto;
             position: relative;
             padding: 40px 20px;
             cursor: none;
+            color: #fff;
+        
+            background: linear-gradient(
+                -45deg,
+                #0f2027,
+                #203a43,
+                #2c5364,
+                #1a2980
+            );
+            background-size: 400% 400%;
+            animation: gradientFlow 18s ease infinite;
         }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
 
         /* Custom heart cursor */
         .custom-cursor {
@@ -63,15 +80,17 @@
 
         .cursor-sparkle {
             position: fixed;
-            width: 8px;
-            height: 8px;
-            background: #feca57;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #fff6b7, #ffd700, transparent);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
-            animation: sparkleFloat 0.8s ease-out forwards;
-            box-shadow: 0 0 10px #feca57;
+            animation: sparkleFloat 1.2s ease-out forwards;
+            filter: blur(0.4px);
+            box-shadow: 0 0 12px rgba(255,215,0,0.8);
         }
+
 
         @keyframes sparkleFloat {
             0% {
@@ -95,7 +114,8 @@
 
         h1 {
             font-size: 3em;
-            color: #2d3436;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(159, 211, 255, 0.8);
             margin-bottom: 20px;
             opacity: 0;
             animation: fadeIn 1s forwards;
@@ -105,7 +125,7 @@
 
         .subtitle {
             font-size: 1.3em;
-            color: #636e72;
+            color: #dfefff;
             margin-bottom: 40px;
             opacity: 0;
             animation: fadeIn 1s 0.5s forwards;
@@ -708,6 +728,31 @@
             }
         }
 
+        /* Floating star sparkles */
+        .sparkle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #ffffff, #9fd3ff, transparent);
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: sparkleRise linear forwards;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        @keyframes sparkleRise {
+            from {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-120vh) scale(0);
+                opacity: 0;
+            }
+        }
+
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2em;
@@ -910,6 +955,22 @@
         for (let i = 0; i < 10; i++) {
             setTimeout(createFloatingHeart, i * 1000);
         }
+
+        function createBackgroundSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.bottom = '-10px';
+            sparkle.style.animationDuration = (Math.random() * 6 + 6) + 's';
+            sparkle.style.opacity = Math.random();
+        
+            document.body.appendChild(sparkle);
+        
+            setTimeout(() => sparkle.remove(), 12000);
+        }
+
+        setInterval(createBackgroundSparkle, 500);
+
 
         const messages = [
             { title: "My First Thought", text: "Every morning, you're my first thought and my biggest smile." },
