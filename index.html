@@ -1,338 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy New Year 2026 - [Her Name], My Eternal Love</title>
-
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto&display=swap" rel="stylesheet">
-
-<style>
-  /* Reset & base */
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Roboto', sans-serif;
-    overflow-x: hidden;
-    color: #fff;
-    background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
-  }
-
-  a { text-decoration: none; color: inherit; }
-
-  /* Hero Section */
-  .hero {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background: linear-gradient(to bottom, #ff9a9e, #fad0c4); /* gradient instead of video */
-  }
-  .hero-content {
-    position: relative;
-    max-width: 90%;
-    z-index: 2;
-    animation: fadeIn 2s ease-out;
-  }
-  .hero-content h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: gold;
-    text-shadow: 2px 2px 10px #ff4b5c;
-  }
-  .hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-  }
-  .pulse-btn {
-    padding: 12px 30px;
-    background: linear-gradient(45deg, #ff9a9e, #fad0c4);
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    font-size: 1rem;
-    cursor: pointer;
-    animation: pulse 1.5s infinite;
-  }
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-30px);}
-    to { opacity: 1; transform: translateY(0);}
-  }
-
-  /* Floating Hearts */
-  .heart {
-    position: absolute;
-    font-size: 2rem;
-    color: #ff4b5c;
-    animation: floatUp linear infinite;
-  }
-  @keyframes floatUp {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-  }
-
-  /* Love Letter Section */
-  .love-letter {
-    padding: 80px 20px;
-    background: rgba(255,255,255,0.9);
-    color: #222;
-    font-size: 1.2rem;
-    position: relative;
-    text-align: center;
-  }
-  .love-letter h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-  .typewriter p {
-    display: inline-block;
-    border-right: 2px solid #ff4b5c;
-    white-space: nowrap;
-    overflow: hidden;
-    animation: typing 6s steps(80) forwards;
-  }
-  @keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
-  }
-
-  /* Timeline */
-  .timeline {
-    background: #fce4ec;
-    padding: 60px 20px;
-  }
-  .timeline h2 {
-    text-align: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    margin-bottom: 50px;
-    color: #ff4b5c;
-  }
-  .timeline-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-  }
-  .timeline-card {
-    background: #fff;
-    padding: 20px;
-    border-radius: 15px;
-    max-width: 500px;
-    text-align: left;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transition: transform 0.6s;
-  }
-  .timeline-card:hover {
-    transform: rotateY(10deg);
-  }
-  /* Replace images with colored placeholders */
-  .timeline-card .placeholder-img {
-    height: 150px;
-    background: #ff9a9e;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:#fff;
-    font-weight:bold;
-  }
-
-  /* Countdown */
-  .countdown-section {
-    padding: 80px 20px;
-    text-align: center;
-    background: linear-gradient(to bottom, #fad0c4, #ff9a9e);
-  }
-  .countdown-section h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 20px; }
-  .countdown-timer { font-size: 2rem; margin-bottom: 30px; }
-  .resolutions li { margin: 10px 0; list-style: none; }
-
-  /* Photo Gallery */
-  .gallery {
-    padding: 60px 20px;
-    column-count: 3;
-    column-gap: 15px;
-  }
-  .gallery .placeholder-img {
-    width: 100%;
-    margin-bottom: 15px;
-    border-radius: 15px;
-    background:#ff4b5c;
-    height:150px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:#fff;
-    font-weight:bold;
-    transition: transform 0.3s;
-    cursor:pointer;
-  }
-  .gallery .placeholder-img:hover {
-    transform: scale(1.05);
-  }
-
-  /* Footer */
-  footer {
-    background: rgba(0,0,0,0.8);
-    padding: 40px 20px;
-    text-align: center;
-  }
-  footer p, footer a { color: #fff; }
-  footer form input, footer form textarea {
-    width: 80%;
-    margin: 5px 0;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-  }
-  footer form button {
-    padding: 10px 20px;
-    border-radius: 50px;
-    background: #ff4b5c;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-  }
-
-  /* Responsive */
-  @media(max-width:768px){
-    .hero-content h1 { font-size: 1.8rem; }
-    .timeline-card { max-width: 90%; }
-    .gallery { column-count: 2; }
-  }
-  @media(max-width:480px){
-    .gallery { column-count: 1; }
-    .hero-content p { font-size: 1rem; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our New Year Together | Forever Starts Now</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8e8e8 0%, #f5d5d5 50%, #e8d4d4 100%);
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .sparkle {
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+        .heart-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+    </style>
 </head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white/60 backdrop-blur-md border-b border-pink-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="font-serif text-2xl text-rose-900">Forever & Always</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-rose-600 transition-colors">Home</a>
+                    <a href="#countdown" class="text-gray-700 hover:text-rose-600 transition-colors">Countdown</a>
+                    <a href="#memories" class="text-gray-700 hover:text-rose-600 transition-colors">Our Story</a>
+                    <a href="#message" class="text-gray-700 hover:text-rose-600 transition-colors">Message</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-<body>
+    <!-- Hero Section -->
+    <section id="home" class="relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+            <div class="text-center relative z-10">
+                <div class="inline-block mb-6">
+                    <span class="text-6xl sparkle">✨</span>
+                </div>
+                <h1 class="font-serif text-5xl md:text-7xl text-rose-900 mb-6 leading-tight">
+                    <span class="block text-balance">Welcome to</span>
+                    <span class="block italic text-6xl md:text-8xl text-rose-700">Our New Year</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto mb-12 leading-relaxed text-pretty">
+                    As we count down to a brand new year, I count my blessings that you're by my side. Here's to new beginnings, endless love, and the beautiful journey ahead.
+                </p>
+                <a href="#countdown" class="inline-block bg-rose-600 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-rose-700 transition-colors shadow-lg hover:shadow-xl">
+                    See the Countdown
+                </a>
+            </div>
+            
+            <!-- Floating Hearts -->
+            <div class="absolute top-20 left-10 text-6xl heart-float opacity-30">💕</div>
+            <div class="absolute top-40 right-20 text-5xl heart-float opacity-30" style="animation-delay: 1s;">❤️</div>
+            <div class="absolute bottom-20 left-1/4 text-4xl heart-float opacity-30" style="animation-delay: 2s;">💖</div>
+        </div>
+    </section>
 
-<!-- Hero Section -->
-<section class="hero">
-  <div class="hero-content">
-    <h1>Happy New Year 2026, My Love [Her Name]!</h1>
-    <p>You've made 2025 magical. Can't wait for our forever adventures ahead.</p>
-    <button class="pulse-btn" onclick="scrollToLetter()">Enter Our Love Story</button>
-  </div>
-</section>
+    <!-- Countdown Section -->
+    <section id="countdown" class="py-20 bg-white/40">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-4xl md:text-5xl text-rose-900 mb-4">Countdown to 2026</h2>
+                <p class="text-lg text-gray-600">Every second with you is precious</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
+                <div class="countdown-box rounded-2xl p-6 text-center shadow-lg">
+                    <div id="days" class="text-5xl md:text-6xl font-bold text-rose-700 mb-2">00</div>
+                    <div class="text-sm md:text-base text-gray-600 uppercase tracking-wide">Days</div>
+                </div>
+                <div class="countdown-box rounded-2xl p-6 text-center shadow-lg">
+                    <div id="hours" class="text-5xl md:text-6xl font-bold text-rose-700 mb-2">00</div>
+                    <div class="text-sm md:text-base text-gray-600 uppercase tracking-wide">Hours</div>
+                </div>
+                <div class="countdown-box rounded-2xl p-6 text-center shadow-lg">
+                    <div id="minutes" class="text-5xl md:text-6xl font-bold text-rose-700 mb-2">00</div>
+                    <div class="text-sm md:text-base text-gray-600 uppercase tracking-wide">Minutes</div>
+                </div>
+                <div class="countdown-box rounded-2xl p-6 text-center shadow-lg">
+                    <div id="seconds" class="text-5xl md:text-6xl font-bold text-rose-700 mb-2">00</div>
+                    <div class="text-sm md:text-base text-gray-600 uppercase tracking-wide">Seconds</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Floating hearts animation -->
-<script>
-  for(let i=0;i<20;i++){
-    let heart = document.createElement('div');
-    heart.className = 'heart';
-    heart.style.left = Math.random()*100+'vw';
-    heart.style.animationDuration = (5+Math.random()*5)+'s';
-    heart.innerText = '💖';
-    document.body.appendChild(heart);
-  }
-</script>
+    <!-- Memories Section -->
+    <section id="memories" class="py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl text-rose-900 mb-4">Our Love Story</h2>
+                <p class="text-lg text-gray-600">The moments that brought us here</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-5xl mb-4">💑</div>
+                    <h3 class="font-serif text-2xl text-rose-900 mb-3">First Meeting</h3>
+                    <p class="text-gray-600 leading-relaxed">From the moment our eyes met, I knew something magical was beginning. You made me believe in love at first sight.</p>
+                </div>
+                
+                <div class="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-5xl mb-4">🌹</div>
+                    <h3 class="font-serif text-2xl text-rose-900 mb-3">First Date</h3>
+                    <p class="text-gray-600 leading-relaxed">Every laugh, every smile, every word we shared that evening painted the beginning of our beautiful story.</p>
+                </div>
+                
+                <div class="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-5xl mb-4">💍</div>
+                    <h3 class="font-serif text-2xl text-rose-900 mb-3">Forever Promise</h3>
+                    <p class="text-gray-600 leading-relaxed">Together we've built a love that grows stronger each day. Here's to forever and all the adventures ahead.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Love Letter -->
-<section class="love-letter" id="loveLetter">
-  <h2>My Love Letter</h2>
-  <div class="typewriter">
-    <p>My dearest [Her Name], 💋 As 2025 ends, my heart overflows with gratitude for you. You light up my world brighter than any firework. In 2026, I promise more laughter, cuddles, and dreams chased together. I love you more than words—forever yours, [Your Name]. ✨❤️</p>
-  </div>
-</section>
+    <!-- Message Section -->
+    <section id="message" class="py-20 bg-white/40">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-xl">
+                <div class="text-center mb-8">
+                    <h2 class="font-serif text-4xl md:text-5xl text-rose-900 mb-4">A Message for You</h2>
+                    <div class="text-6xl mb-6">💌</div>
+                </div>
+                
+                <div class="prose prose-lg max-w-none">
+                    <p class="text-gray-700 leading-relaxed text-lg mb-6">
+                        My Dearest Love,
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        As this year comes to a close, I find myself overwhelmed with gratitude for every moment we've shared. You've filled my days with laughter, my heart with joy, and my life with meaning.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        This New Year isn't just about new beginnings—it's about continuing the beautiful journey we've started together. Every dream I have for the future includes you. Every goal I set is brighter because I know you'll be there cheering me on.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mb-8">
+                        Here's to another year of love, laughter, adventures, and making memories that will last a lifetime. Happy New Year, my love. Forever and always.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed font-serif italic text-xl">
+                        With all my love,<br>
+                        Your Forever Valentine 💕
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Memories Timeline -->
-<section class="timeline">
-  <h2>Our Memories</h2>
-  <div class="timeline-container">
-    <div class="timeline-card">
-      <div class="placeholder-img">First Date</div>
-      <strong>Our first date:</strong> [Describe briefly]
-    </div>
-    <div class="timeline-card">
-      <div class="placeholder-img">Best Trip</div>
-      <strong>Best trip:</strong> [Memory]
-    </div>
-    <div class="timeline-card">
-      <div class="placeholder-img">Funniest Moment</div>
-      <strong>Funniest moment:</strong> [Memory]
-    </div>
-    <div class="timeline-card">
-      <div class="placeholder-img">Why I Love You</div>
-      <strong>Why I love you:</strong> Your smile melts me.
-    </div>
-    <div class="timeline-card">
-      <strong>2026:</strong> More memories to make!
-    </div>
-  </div>
-</section>
+    <!-- Footer -->
+    <footer class="bg-rose-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="font-serif text-3xl mb-4">Forever & Always</div>
+            <p class="text-rose-200 mb-6">Celebrating love, one moment at a time</p>
+            <div class="text-4xl space-x-4">
+                <span>💕</span>
+                <span>❤️</span>
+                <span>💖</span>
+                <span>💗</span>
+            </div>
+            <p class="text-rose-300 text-sm mt-8">Made with love for New Year 2026</p>
+        </div>
+    </footer>
 
-<!-- Countdown & Resolutions -->
-<section class="countdown-section">
-  <h2>Countdown to 2026</h2>
-  <div class="countdown-timer" id="countdown">00d 00h 00m 00s</div>
-  <ul class="resolutions">
-    <li>- More date nights under the stars</li>
-    <li>- Travel to [dream destination]</li>
-    <li>- Grow old loving you harder</li>
-  </ul>
-</section>
+    <!-- Countdown Script -->
+    <script>
+        function updateCountdown() {
+            const newYear = new Date('January 1, 2026 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = newYear - now;
 
-<!-- Photo Gallery -->
-<section class="gallery">
-  <div class="placeholder-img">Photo 1</div>
-  <div class="placeholder-img">Photo 2</div>
-  <div class="placeholder-img">Photo 3</div>
-  <div class="placeholder-img">Photo 4</div>
-  <div class="placeholder-img">Photo 5</div>
-  <div class="placeholder-img">Photo 6</div>
-</section>
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-<!-- Footer -->
-<footer>
-  <p>Send me your reply, my love 💌</p>
-  <form>
-    <input type="text" placeholder="Your Name">
-    <textarea placeholder="Message"></textarea>
-    <button type="submit">Send</button>
-  </form>
-  <p>Play this on loop: <a href="[Her favorite song link]" target="_blank">🎵 Love Song</a></p>
-</footer>
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
 
-<!-- Scripts -->
-<script>
-  function scrollToLetter(){
-    document.getElementById('loveLetter').scrollIntoView({behavior: 'smooth'});
-  }
+            if (distance < 0) {
+                document.getElementById('days').innerText = '00';
+                document.getElementById('hours').innerText = '00';
+                document.getElementById('minutes').innerText = '00';
+                document.getElementById('seconds').innerText = '00';
+            }
+        }
 
-  // Countdown timer to Jan 1, 2026 00:00 IST
-  const countdown = setInterval(() => {
-    const now = new Date().getTime();
-    const target = new Date("January 1, 2026 00:00:00 GMT+0530").getTime();
-    const diff = target - now;
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
 
-    if(diff <= 0){
-      clearInterval(countdown);
-      document.getElementById("countdown").innerText = "✨ Happy 2026! ✨";
-      return;
-    }
-
-    const days = Math.floor(diff / (1000*60*60*24));
-    const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-    const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
-    const seconds = Math.floor((diff % (1000*60)) / 1000);
-
-    document.getElementById("countdown").innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-  }, 1000);
-</script>
-
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
