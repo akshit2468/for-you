@@ -339,157 +339,38 @@
         }
 
         /* Game section */
-        .game-button {
-            margin-top: 30px;
-            padding: 15px 40px;
-            font-size: 1.3em;
-            background: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%);
-            color: #2d3436;
-            border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .game-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
-
-        .game-container {
-            display: none;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 600px;
-            margin: 40px auto;
-        }
-
-        .game-container.show {
-            display: block;
-            animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-            position: relative;
-            z-index: 150;
-        }
-
-        .game-header h2 {
-            font-size: 2.5em;
-            color: #feca57;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .game-stats {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px 0;
-            font-size: 1.3em;
-            color: #2d3436;
-            font-weight: bold;
-        }
-
-        .game-board {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .hole {
-            width: 100%;
-            aspect-ratio: 1;
-            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 5px 15px rgba(0,0,0,0.2);
-            cursor: none;
-        }
-
-        .mole {
-            position: absolute;
-            width: 80%;
-            height: 80%;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            transition: top 0.2s ease;
-            cursor: none;
-            font-size: 4em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .mole.up {
-            top: 10%;
-        }
-
-        .mole.hit {
-            animation: popOut 0.4s ease-out forwards;
-        }
-
-        @keyframes popOut {
-            0% {
-                transform: translateX(-50%) scale(1);
-            }
-            50% {
-                transform: translateX(-50%) scale(1.5) rotate(15deg);
-            }
-            100% {
-                transform: translateX(-50%) scale(0) rotate(45deg);
-                opacity: 0;
-            }
-        }
-
-        .game-message {
-            text-align: center;
-            font-size: 1.5em;
-            color: #feca57;
-            min-height: 40px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .game-over {
-            display: none;
-            text-align: center;
-        }
-
-        .game-over.show {
-            display: block;
-        }
-
-        .game-over h3 {
+        
+        #scoreBoard {
             font-size: 2em;
-            color: #feca57;
-            margin-bottom: 20px;
+            color: #3498db;
+            text-align: center;
+            margin-top: 20px;
         }
-
-        .game-over p {
-            font-size: 1.5em;
-            color: #2d3436;
-            margin-bottom: 20px;
+        
+        .game-area {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 500px;
+            margin: 40px auto;
+            border: 3px solid #3498db;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #e0f7ff;
         }
-
-        .play-again-btn {
-            padding: 15px 40px;
-            font-size: 1.2em;
-            background: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%);
-            color: #2d3436;
-            border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
+        
+        .falling-video {
+            position: absolute;
+            width: 80px; /* adjust if needed */
+            height: 80px;
+            object-fit: cover;
+            pointer-events: none;
+            animation: fall linear;
         }
-
-        .play-again-btn:hover {
-            transform: scale(1.05);
+        
+        @keyframes fall {
+            0% { top: -100px; }
+            100% { top: 100%; }
         }
 
         /* Gift section */
@@ -779,6 +660,42 @@
                 font-size: 1em;
             }
         }
+
+        /* Catch Me Game Styles */
+        #scoreBoard {
+            font-size: 1.8em;
+            color: #00d2ff; /* blue theme */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .game-area {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(180deg, #1a2980, #26d0ce); /* blue gradient */
+            overflow: hidden;
+            border-radius: 20px;
+        }
+        
+        .falling-video {
+            position: absolute;
+            width: 80px; /* fits 1:1 ratio */
+            height: 80px;
+            cursor: pointer;
+        }
+        
+        .next-section {
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.8s ease;
+        }
+        
+        .next-section.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
     </style>
 </head>
 <body>
@@ -1169,5 +1086,65 @@
             });
         });
     </script>
+    <script>
+    const gameArea = document.getElementById('gameArea');
+    const scoreBoard = document.getElementById('scoreBoard');
+    const nextSection = document.getElementById('giftSection'); // or your next section
+    
+    let score = 0;
+    let gameDuration = 30000; // 30 seconds
+    let spawnInterval;
+    let gameTimeout;
+    
+    function spawnVideo() {
+        const video = document.createElement('video');
+        video.className = 'falling-video';
+        video.src = 'videos/your-video.mp4'; // <-- your video path
+        video.autoplay = true;
+        video.loop = true;
+        video.muted = true;
+        
+        // random horizontal start
+        video.style.left = Math.random() * (gameArea.clientWidth - 80) + 'px';
+        video.style.top = '-100px';
+        
+        gameArea.appendChild(video);
+        
+        // falling animation
+        let pos = -100;
+        const fallSpeed = Math.random() * 3 + 2; // pixels per frame
+        const fall = setInterval(() => {
+            pos += fallSpeed;
+            video.style.top = pos + 'px';
+            if(pos > gameArea.clientHeight){
+                clearInterval(fall);
+                video.remove();
+            }
+        }, 16); // ~60fps
+        
+        // click event
+        video.addEventListener('click', () => {
+            score++;
+            scoreBoard.textContent = `Score: ${score}`;
+            video.remove();
+        });
+    }
+    
+    // Start the game
+    function startGame() {
+        score = 0;
+        scoreBoard.textContent = 'Score: 0';
+        spawnInterval = setInterval(spawnVideo, 800); // spawn every 0.8s
+        
+        gameTimeout = setTimeout(() => {
+            clearInterval(spawnInterval);
+            nextSection.classList.add('show'); // reveal next section
+        }, gameDuration);
+    }
+    
+    // Start automatically when page loads or trigger manually
+    startGame();
+    </script>
+
 </body>
 </html>
