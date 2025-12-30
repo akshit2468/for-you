@@ -841,6 +841,37 @@
             animation: blueShimmer 3s ease infinite;
         }
 
+        /* 🌟 Countdown heading gradient */
+        .countdown-section h2 {
+            background: linear-gradient(135deg, #fdd835, #ffc107, #ffeb3b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: headingGlow 3s ease-in-out infinite alternate;
+        }
+        
+        /* ✨ Heading glow animation */
+        @keyframes headingGlow {
+            0% { filter: drop-shadow(0 0 5px #ffd700); }
+            50% { filter: drop-shadow(0 0 15px #ffea00); }
+            100% { filter: drop-shadow(0 0 5px #ffd700); }
+        }
+        
+        /* ✨ Countdown numbers golden shimmer */
+        @keyframes goldShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .time-number {
+            background: linear-gradient(135deg, #ffd700, #ffea00, #fff176);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: goldShimmer 3s ease infinite;
+            font-weight: bold;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2em;
