@@ -774,102 +774,70 @@
             }
         }
 
-        /* 🌟 Keep emojis their original color */
+        /* 🌟 Countdown heading soft neon blue glow */
+        .countdown-section h2 {
+            background: linear-gradient(135deg, #4facfe, #00c6ff, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow:
+                0 0 10px #4facfe,
+                0 0 20px #00c6ff,
+                0 0 30px #00f2fe,
+                0 0 40px #00c6ff,
+                0 0 50px #4facfe;
+            animation: neonBluePulse 2s ease-in-out infinite alternate;
+        }
+        
+        /* ✨ Smooth neon pulse animation */
+        @keyframes neonBluePulse {
+            0% {
+                text-shadow:
+                    0 0 5px #4facfe,
+                    0 0 10px #00c6ff,
+                    0 0 15px #00f2fe,
+                    0 0 20px #00c6ff,
+                    0 0 25px #4facfe;
+            }
+            50% {
+                text-shadow:
+                    0 0 15px #4facfe,
+                    0 0 30px #00c6ff,
+                    0 0 45px #00f2fe,
+                    0 0 60px #00c6ff,
+                    0 0 75px #4facfe;
+            }
+            100% {
+                text-shadow:
+                    0 0 5px #4facfe,
+                    0 0 10px #00c6ff,
+                    0 0 15px #00f2fe,
+                    0 0 20px #00c6ff,
+                    0 0 25px #4facfe;
+            }
+        }
+        
+        /* ✨ Countdown numbers white shimmer */
+        .time-number {
+            background: linear-gradient(135deg, #ffffff, #e6f0ff, #ffffff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: whiteShimmer 2.5s ease infinite;
+            font-weight: bold;
+        }
+        
+        /* ✨ White shimmer animation */
+        @keyframes whiteShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* 🌟 Keep emojis original color */
         h2 .emoji {
             background: none !important;
             -webkit-background-clip: unset;
             -webkit-text-fill-color: inherit;
-        }
-        
-        /* 🌊 Countdown boxes with smooth blue gradient */
-        .time-unit {
-            background: linear-gradient(135deg, #4facfe 0%, #00c6ff 50%, #00f2fe 100%);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-        }
-        
-        .time-number {
-            color: #fff; /* makes numbers stand out */
-        }
-        
-        /* 🎮 Buttons with shiny blue gradient */
-        .game-button,
-        .play-again-btn {
-            background: linear-gradient(135deg, #4facfe 0%, #00c6ff 50%, #00f2fe 100%);
-            color: #fff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        /* 🎁 Gift boxes with smooth gradient */
-        .gift-wrap {
-            background: linear-gradient(135deg, #4facfe 0%, #00c6ff 50%, #00f2fe 100%);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        /* 🎉 Game messages and final message headings */
-        .game-header h2,
-        .game-message,
-        .game-over h3,
-        .final-message h2,
-        .gift-section h2 {
-            background: linear-gradient(135deg, #4facfe 0%, #00c6ff 50%, #00f2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        /* 💖 Floating hearts behind everything */
-        .floating-hearts {
-            z-index: 0; /* behind all content */
-        }
-        
-        .container {
-            position: relative;
-            z-index: 10; /* ensures content is above hearts */
-        }
-
-        /* ✨ Countdown numbers shimmer effect */
-        @keyframes blueShimmer {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        .time-number {
-            background: linear-gradient(135deg, #4facfe, #00c6ff, #00f2fe);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: blueShimmer 3s ease infinite;
-        }
-
-        /* 🌟 Countdown heading gradient */
-        .countdown-section h2 {
-            background: linear-gradient(135deg, #fdd835, #ffc107, #ffeb3b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: headingGlow 3s ease-in-out infinite alternate;
-        }
-        
-        /* ✨ Heading glow animation */
-        @keyframes headingGlow {
-            0% { filter: drop-shadow(0 0 5px #ffd700); }
-            50% { filter: drop-shadow(0 0 15px #ffea00); }
-            100% { filter: drop-shadow(0 0 5px #ffd700); }
-        }
-        
-        /* ✨ Countdown numbers golden shimmer */
-        @keyframes goldShimmer {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        .time-number {
-            background: linear-gradient(135deg, #ffd700, #ffea00, #fff176);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: goldShimmer 3s ease infinite;
-            font-weight: bold;
         }
 
         @media (max-width: 768px) {
