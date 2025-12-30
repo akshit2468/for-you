@@ -774,58 +774,72 @@
             }
         }
 
-        /* Countdown section blue gradient */
-        .countdown-section h2 {
-            background: linear-gradient(135deg, #4facfe, #00c6ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* 🌟 Keep emojis their original color */
+        h2 .emoji {
+            background: none !important;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: inherit;
         }
         
+        /* 🌊 Countdown boxes with smooth blue gradient */
         .time-unit {
-            background: linear-gradient(135deg, #4facfe, #00c6ff);
+            background: linear-gradient(135deg, #4facfe 0%, #00c6ff 50%, #00f2fe 100%);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
         }
         
         .time-number {
-            color: #ffffff; /* make numbers white to stand out on gradient */
+            color: #fff; /* makes numbers stand out */
         }
         
-        /* Game section (Whack-a-Heart) blue gradient */
+        /* 🎮 Buttons with shiny blue gradient */
+        .game-button,
+        .play-again-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00c6ff 50%, #00f2fe 100%);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* 🎁 Gift boxes with smooth gradient */
+        .gift-wrap {
+            background: linear-gradient(135deg, #4facfe 0%, #00c6ff 50%, #00f2fe 100%);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* 🎉 Game messages and final message headings */
         .game-header h2,
         .game-message,
-        .game-over h3 {
-            background: linear-gradient(135deg, #4facfe, #00c6ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .hole {
-            background: linear-gradient(135deg, #4facfe, #00c6ff);
-        }
-        
-        .play-again-btn,
-        .game-button {
-            background: linear-gradient(135deg, #4facfe, #00c6ff);
-            color: #fff;
-        }
-        
-        /* Gift section blue gradient */
+        .game-over h3,
+        .final-message h2,
         .gift-section h2 {
-            background: linear-gradient(135deg, #4facfe, #00c6ff);
+            background: linear-gradient(135deg, #4facfe 0%, #00c6ff 50%, #00f2fe 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
-        .gift-wrap {
-            background: linear-gradient(135deg, #4facfe, #00c6ff);
+        /* 💖 Floating hearts behind everything */
+        .floating-hearts {
+            z-index: 0; /* behind all content */
         }
         
-        /* Final message blue gradient */
-        .final-message h2 {
-            background: linear-gradient(135deg, #4facfe, #00c6ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .container {
+            position: relative;
+            z-index: 10; /* ensures content is above hearts */
         }
 
+        /* ✨ Countdown numbers shimmer effect */
+        @keyframes blueShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .time-number {
+            background: linear-gradient(135deg, #4facfe, #00c6ff, #00f2fe);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: blueShimmer 3s ease infinite;
+        }
 
         @media (max-width: 768px) {
             h1 {
