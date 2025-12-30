@@ -1,1150 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You 💛 | Happy New Year 2026</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            min-height: 100vh;
-            overflow-x: hidden;
-            overflow-y: auto;
-            position: relative;
-            padding: 40px 20px;
-            cursor: none;
-            color: #fff;
-        
-            background: linear-gradient(
-                -45deg,
-                #0f2027,
-                #203a43,
-                #2c5364,
-                #1a2980
-            );
-            background-size: 400% 400%;
-            animation: gradientFlow 18s ease infinite;
-        }
-        
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-
-        /* Custom heart cursor */
-        .custom-cursor {
-            position: fixed;
-            width: 30px;
-            height: 30px;
-            pointer-events: none;
-            z-index: 10000;
-            transition: transform 0.1s ease;
-        }
-
-        .cursor-heart {
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
-            position: relative;
-            transform: rotate(-45deg);
-            filter: drop-shadow(0 0 10px rgba(254, 202, 87, 0.8));
-        }
-
-        .cursor-heart::before,
-        .cursor-heart::after {
-            content: "";
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        .cursor-heart::before {
-            top: -15px;
-            left: 0;
-        }
-
-        .cursor-heart::after {
-            left: 15px;
-            top: 0;
-        }
-
-        .cursor-sparkle {
-            position: fixed;
-            width: 6px;
-            height: 6px;
-            background: radial-gradient(circle, #fff6b7, #ffd700, transparent);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            animation: sparkleFloat 1.2s ease-out forwards;
-            filter: blur(0.4px);
-            box-shadow: 0 0 12px rgba(255,215,0,0.8);
-        }
-
-
-        @keyframes sparkleFloat {
-            0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--tx), var(--ty)) scale(0);
-                opacity: 0;
-            }
-        }
-
-        .container {
-            text-align: center;
-            z-index: 10;
-            padding: 20px;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            font-size: 3em;
-            color: #ffffff;
-            text-shadow: 0 0 20px rgba(159, 211, 255, 0.8);
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-            position: relative;
-            z-index: 100;
-        }
-
-        .subtitle {
-            font-size: 1.3em;
-            color: #dfefff;
-            margin-bottom: 40px;
-            opacity: 0;
-            animation: fadeIn 1s 0.5s forwards;
-            position: relative;
-            z-index: 100;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Interactive hearts section */
-        .heart-container {
-            position: relative;
-            min-height: 300px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .heart {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, #ff9ff3 0%, #feca57 100%);
-            position: relative;
-            transform: rotate(-45deg);
-            cursor: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .heart:hover {
-            transform: rotate(-45deg) scale(1.1);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
-
-        .heart::before,
-        .heart::after {
-            content: "";
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, #ff9ff3 0%, #feca57 100%);
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        .heart::before {
-            top: -60px;
-            left: 0;
-        }
-
-        .heart::after {
-            left: 60px;
-            top: 0;
-        }
-
-        .heart-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-            font-size: 1.5em;
-            z-index: 5;
-            pointer-events: none;
-        }
-
-        .heart.clicked {
-            animation: heartPop 0.6s ease forwards;
-        }
-
-        @keyframes heartPop {
-            0% {
-                transform: rotate(-45deg) scale(1);
-                opacity: 1;
-            }
-            30% {
-                transform: rotate(-45deg) scale(1.4);
-            }
-            50% {
-                transform: rotate(-45deg) scale(1.2) rotate(-405deg);
-            }
-            70% {
-                transform: rotate(-45deg) scale(0.5) rotate(-495deg);
-                opacity: 0.5;
-            }
-            100% {
-                transform: rotate(-45deg) scale(0) rotate(-585deg);
-                opacity: 0;
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: rotate(-45deg) translateY(0);
-            }
-            50% {
-                transform: rotate(-45deg) translateY(-20px);
-            }
-        }
-
-        .heart:nth-child(1) { animation-delay: 0s; }
-        .heart:nth-child(2) { animation-delay: 0.2s; }
-        .heart:nth-child(3) { animation-delay: 0.4s; }
-        .heart:nth-child(4) { animation-delay: 0.6s; }
-        .heart:nth-child(5) { animation-delay: 0.8s; }
-        .heart:nth-child(6) { animation-delay: 1s; }
-
-        /* Revealed messages section */
-        .revealed-messages {
-            max-width: 600px;
-            margin: 30px auto;
-        }
-
-        .message-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            opacity: 0;
-            transform: translateY(30px) scale(0.8);
-            animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-        }
-
-        @keyframes slideInBounce {
-            0% {
-                opacity: 0;
-                transform: translateY(30px) scale(0.8) rotate(-5deg);
-            }
-            60% {
-                transform: translateY(-10px) scale(1.05) rotate(2deg);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1) rotate(0deg);
-            }
-        }
-
-        .message-card h3 {
-            color: #feca57;
-            font-size: 1.1em;
-            margin-bottom: 10px;
-        }
-
-        .message-card p {
-            color: #2d3436;
-            font-size: 1.2em;
-            line-height: 1.6;
-        }
-
-        /* Countdown section */
-        .countdown-section {
-            opacity: 0;
-            transform: scale(0);
-            transition: all 0.8s ease;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 700px;
-            margin: 40px auto;
-        }
-
-        .countdown-section.show {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .countdown-section h2 {
-            font-size: 2.5em;
-            color: #feca57;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .countdown-timer {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .time-unit {
-            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
-            padding: 25px 20px;
-            border-radius: 15px;
-            min-width: 120px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        .time-number {
-            font-size: 3em;
-            font-weight: bold;
-            color: #2d3436;
-            display: block;
-            line-height: 1;
-        }
-
-        .time-label {
-            font-size: 1em;
-            color: #636e72;
-            text-transform: uppercase;
-            margin-top: 10px;
-            letter-spacing: 1px;
-        }
-
-        /* Game section */
-        
-        #scoreBoard {
-            font-size: 2em;
-            color: #3498db;
-            text-align: center;
-            margin-top: 20px;
-        }
-        
-        .game-area {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            height: 500px;
-            margin: 40px auto;
-            border: 3px solid #3498db;
-            border-radius: 20px;
-            overflow: hidden;
-            background: #e0f7ff;
-        }
-        
-        .falling-video {
-            position: absolute;
-            width: 80px; /* adjust if needed */
-            height: 80px;
-            object-fit: cover;
-            pointer-events: none;
-            animation: fall linear;
-        }
-        
-        @keyframes fall {
-            0% { top: -100px; }
-            100% { top: 100%; }
-        }
-
-        /* Gift section */
-        .gift-section {
-            opacity: 0;
-            transform: scale(0);
-            transition: all 0.8s ease;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 900px;
-            margin: 40px auto;
-        }
-
-        .gift-section.show {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .gift-section h2 {
-            font-size: 2.5em;
-            color: #feca57;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .gift-section > p {
-            text-align: center;
-            color: #636e72;
-            font-size: 1.2em;
-            margin-bottom: 30px;
-        }
-
-        .gifts-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .gift-box {
-            cursor: none;
-            transition: transform 0.3s ease;
-        }
-
-        .gift-box:hover {
-            transform: scale(1.05);
-        }
-
-        .gift-wrap {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto;
-            background: linear-gradient(135deg, #ff9ff3 0%, #feca57 100%);
-            border-radius: 15px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3em;
-            transition: all 0.3s ease;
-        }
-
-        .gift-wrap::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 20px;
-            background: white;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1;
-        }
-
-        .gift-wrap::after {
-            content: "";
-            position: absolute;
-            width: 20px;
-            height: 100%;
-            background: white;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1;
-        }
-
-        .gift-emoji {
-            position: relative;
-            z-index: 2;
-        }
-
-        .gift-label {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 1.2em;
-            color: #2d3436;
-            font-weight: bold;
-        }
-
-        .gift-box.opened .gift-wrap {
-            animation: unwrap 0.8s ease forwards;
-        }
-
-        @keyframes unwrap {
-            0% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.2) rotate(10deg);
-            }
-            100% {
-                transform: scale(0) rotate(45deg);
-                opacity: 0;
-            }
-        }
-
-        .gift-content {
-            display: none;
-            margin: 20px auto;
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            max-width: 500px;
-        }
-
-        .gift-content.show {
-            display: block;
-            animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-        }
-
-        .gift-content p {
-            margin-top: 15px;
-            text-align: center;
-            color: #636e72;
-            font-style: italic;
-        }
-
-        /* Final message */
-        .final-message {
-            opacity: 0;
-            transform: scale(0);
-            transition: all 0.8s ease;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 500px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 100;
-        }
-
-        .final-message.show {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .final-message h2 {
-            font-size: 2.5em;
-            color: #feca57;
-            margin-bottom: 20px;
-        }
-
-        .final-message p {
-            font-size: 1.3em;
-            color: #2d3436;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .signature {
-            font-size: 1.5em;
-            color: #636e72;
-            margin-top: 30px;
-            font-style: italic;
-        }
-
-        /* Floating background hearts */
-        .floating-hearts {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-
-        .bg-heart {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.3);
-            transform: rotate(-45deg);
-            animation: floatUp 10s infinite ease-in;
-        }
-
-        .bg-heart::before,
-        .bg-heart::after {
-            content: "";
-            width: 30px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        .bg-heart::before {
-            top: -15px;
-            left: 0;
-        }
-
-        .bg-heart::after {
-            left: 15px;
-            top: 0;
-        }
-
-        @keyframes floatUp {
-            0% {
-                bottom: -50px;
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                bottom: 100%;
-                opacity: 0;
-            }
-        }
-
-        /* Floating star sparkles */
-        .sparkle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: radial-gradient(circle, #ffffff, #9fd3ff, transparent);
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: sparkleRise linear forwards;
-            pointer-events: none;
-            z-index: 2;
-        }
-        
-        @keyframes sparkleRise {
-            from {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-            to {
-                transform: translateY(-120vh) scale(0);
-                opacity: 0;
-            }
-        }
-
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2em;
-            }
-            .subtitle {
-                font-size: 1em;
-            }
-            .heart {
-                width: 80px;
-                height: 80px;
-            }
-            .heart::before,
-            .heart::after {
-                width: 80px;
-                height: 80px;
-            }
-            .heart::before {
-                top: -40px;
-            }
-            .heart::after {
-                left: 40px;
-            }
-            .heart-text {
-                font-size: 1em;
-            }
-        }
-
-        /* Catch Me Game Styles */
-        #scoreBoard {
-            font-size: 1.8em;
-            color: #00d2ff; /* blue theme */
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .game-area {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(180deg, #1a2980, #26d0ce); /* blue gradient */
-            overflow: hidden;
-            border-radius: 20px;
-        }
-        
-        .falling-video {
-            position: absolute;
-            width: 80px; /* fits 1:1 ratio */
-            height: 80px;
-            cursor: pointer;
-        }
-        
-        .next-section {
-            opacity: 0;
-            transform: scale(0);
-            transition: all 0.8s ease;
-        }
-        
-        .next-section.show {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💙 | Happy New Year 2026</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #fff;
+    background: linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1a2980);
+    background-size: 400% 400%;
+    animation: gradientFlow 18s ease infinite;
+}
+
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+}
+
+/* Headings */
+h1 {
+    font-size: 3em;
+    text-shadow: 0 0 20px rgba(159,211,255,.8);
+}
+
+.subtitle {
+    margin-top: 15px;
+    font-size: 1.2em;
+    color: #dfefff;
+}
+
+/* Hearts */
+.heart-container {
+    margin: 40px 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.heart {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg,#6dd5fa,#2980b9);
+    transform: rotate(-45deg);
+    position: relative;
+    cursor: pointer;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: inherit;
+    border-radius: 50%;
+}
+
+.heart::before { top: -50px; left: 0; }
+.heart::after { left: 50px; top: 0; }
+
+.heart-text {
+    position: absolute;
+    transform: rotate(45deg);
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+}
+
+.heart.clicked {
+    animation: pop .6s forwards;
+}
+
+@keyframes pop {
+    to { transform: scale(0) rotate(-45deg); opacity: 0; }
+}
+
+/* Messages */
+.revealed-messages {
+    max-width: 600px;
+    margin: auto;
+}
+
+.message-card {
+    background: #fff;
+    color: #2d3436;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+/* Countdown */
+.countdown-section {
+    background: #fff;
+    color: #2d3436;
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 40px;
+    display: none;
+}
+
+.countdown-section.show { display: block; }
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.time-unit span:first-child {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+/* GAME */
+#scoreBoard {
+    font-size: 2em;
+    color: #00d2ff;
+    margin: 30px 0;
+}
+
+.game-area {
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
+    margin: auto;
+    background: linear-gradient(180deg,#1a2980,#26d0ce);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.falling-video {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+/* Gifts & Final */
+.section-box {
+    background: #fff;
+    color: #2d3436;
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 40px;
+    display: none;
+}
+
+.section-box.show { display: block; }
+
+.signature {
+    margin-top: 20px;
+    font-style: italic;
+}
+</style>
 </head>
+
 <body>
-    <!-- Custom cursor -->
-    <div class="custom-cursor">
-        <div class="cursor-heart"></div>
-    </div>
+<div class="container">
 
-    <!-- Floating background hearts -->
-    <div class="floating-hearts" id="floatingHearts"></div>
+<h1>💙 For You 💙</h1>
+<p class="subtitle">Tap the hearts, play the game, and reach the surprise.</p>
 
-    <div class="container">
-        <h1>💛 For You, My Love 💛</h1>
-        <p class="subtitle">Click on each heart to reveal a special message as we countdown to our New Year together!</p>
+<div class="heart-container">
+    <div class="heart" data-i="0"><div class="heart-text">💙</div></div>
+    <div class="heart" data-i="1"><div class="heart-text">💙</div></div>
+    <div class="heart" data-i="2"><div class="heart-text">💙</div></div>
+</div>
 
-        <!-- Interactive hearts -->
-        <div class="heart-container" id="heartContainer">
-            <div class="heart" data-message="0">
-                <span class="heart-text">💕</span>
-            </div>
-            <div class="heart" data-message="1">
-                <span class="heart-text">💖</span>
-            </div>
-            <div class="heart" data-message="2">
-                <span class="heart-text">💗</span>
-            </div>
-            <div class="heart" data-message="3">
-                <span class="heart-text">💓</span>
-            </div>
-            <div class="heart" data-message="4">
-                <span class="heart-text">💞</span>
-            </div>
-            <div class="heart" data-message="5">
-                <span class="heart-text">💝</span>
-            </div>
-        </div>
+<div class="revealed-messages" id="messages"></div>
 
-        <!-- Revealed messages container -->
-        <div class="revealed-messages" id="revealedMessages"></div>
+<div class="countdown-section" id="countdown">
+<h2>Countdown to 2026</h2>
+<div class="countdown-timer">
+    <div class="time-unit"><span id="days">00</span><br>Days</div>
+    <div class="time-unit"><span id="hours">00</span><br>Hours</div>
+    <div class="time-unit"><span id="minutes">00</span><br>Minutes</div>
+    <div class="time-unit"><span id="seconds">00</span><br>Seconds</div>
+</div>
+</div>
 
-        <!-- Countdown section -->
-        <div class="countdown-section" id="countdownSection">
-            <h2>🎊 Countdown to 2026 🎊</h2>
-            <div class="countdown-timer">
-                <div class="time-unit">
-                    <span class="time-number" id="days">00</span>
-                    <span class="time-label">Days</span>
-                </div>
-                <div class="time-unit">
-                    <span class="time-number" id="hours">00</span>
-                    <span class="time-label">Hours</span>
-                </div>
-                <div class="time-unit">
-                    <span class="time-number" id="minutes">00</span>
-                    <span class="time-label">Minutes</span>
-                </div>
-                <div class="time-unit">
-                    <span class="time-number" id="seconds">00</span>
-                    <span class="time-label">Seconds</span>
-                </div>
-            </div>
-            <button class="game-button" id="playGameBtn">🎮 Play a Game With Me!</button>
-        </div>
+<!-- GAME -->
+<div id="scoreBoard">Score: 0</div>
+<div class="game-area" id="gameArea"></div>
 
-        <!-- Game section -->
-        <div class="game-container" id="gameContainer">
-            <div class="game-header">
-                <h2>💕 Whack-a-Heart! 💕</h2>
-                <p style="color: #636e72; margin-top: 10px;">Click the hearts as they pop up!</p>
-            </div>
-            <div class="game-stats">
-                <div>Score: <span id="score">0</span></div>
-                <div>Time: <span id="timeLeft">30</span>s</div>
-            </div>
-            <div class="game-message" id="gameMessage">Get ready...</div>
-            <div class="game-board" id="gameBoard">
-                <div class="hole"><div class="mole">💝</div></div>
-                <div class="hole"><div class="mole">💖</div></div>
-                <div class="hole"><div class="mole">💗</div></div>
-                <div class="hole"><div class="mole">💕</div></div>
-                <div class="hole"><div class="mole">💞</div></div>
-                <div class="hole"><div class="mole">💓</div></div>
-                <div class="hole"><div class="mole">💘</div></div>
-                <div class="hole"><div class="mole">💝</div></div>
-                <div class="hole"><div class="mole">💖</div></div>
-            </div>
-            <div class="game-over" id="gameOver">
-                <h3>Game Over!</h3>
-                <p>Your Score: <span id="finalScore">0</span></p>
-                <p id="gameOverMessage"></p>
-                <button class="play-again-btn" id="playAgainBtn">Play Again</button>
-            </div>
-        </div>
+<div class="section-box" id="giftSection">
+<h2>🎁 A Little Surprise</h2>
+<p>You made it.</p>
+</div>
 
-        <!-- Gift section -->
-        <div class="gift-section" id="giftSection">
-            <h2>🎁 Special Gifts For You 🎁</h2>
-            <p>Click on each gift to unwrap your surprise!</p>
-            <div class="gifts-container">
-                <div class="gift-box" data-gift="0">
-                    <div class="gift-wrap">
-                        <span class="gift-emoji">🎁</span>
-                    </div>
-                    <div class="gift-label">Gift 1</div>
-                </div>
-                <div class="gift-box" data-gift="1">
-                    <div class="gift-wrap">
-                        <span class="gift-emoji">🎁</span>
-                    </div>
-                    <div class="gift-label">Gift 2</div>
-                </div>
-                <div class="gift-box" data-gift="2">
-                    <div class="gift-wrap">
-                        <span class="gift-emoji">🎁</span>
-                    </div>
-                    <div class="gift-label">Gift 3</div>
-                </div>
-            </div>
-            <div id="giftContents"></div>
-        </div>
+<div class="section-box" id="final">
+<h2>Happy New Year 2026 🎆</h2>
+<p>Here’s to new beginnings.</p>
+<p class="signature">— Always 💙</p>
+</div>
 
-        <!-- Final message -->
-        <div class="final-message" id="finalMessage">
-            <h2>Happy New Year! 🎊</h2>
-            <p>My dearest love, as we step into 2026 together, I want you to know that you are my greatest blessing.</p>
-            <p>Every moment with you is a treasure, and I can't wait to create more beautiful memories in this new year.</p>
-            <p>Here's to our love, our laughter, and our forever.</p>
-            <p class="signature">With all my heart, always yours 💕</p>
-        </div>
-    </div>
+</div>
 
-    <script>
-        const cursor = document.querySelector('.custom-cursor');
-        let mouseX = 0, mouseY = 0;
+<script>
+/* HEARTS */
+const msgs = [
+    "You make everything better.",
+    "This year starts with you.",
+    "One step closer 💙"
+];
 
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            cursor.style.left = mouseX - 15 + 'px';
-            cursor.style.top = mouseY - 15 + 'px';
+let count = 0;
+document.querySelectorAll('.heart').forEach(h=>{
+    h.onclick = ()=>{
+        if(h.classList.contains('clicked')) return;
+        h.classList.add('clicked');
+        const card = document.createElement('div');
+        card.className = 'message-card';
+        card.textContent = msgs[h.dataset.i];
+        document.getElementById('messages').appendChild(card);
+        count++;
+        if(count === 3) document.getElementById('countdown').classList.add('show');
+    };
+});
 
-            // Create sparkle effect
-            if (Math.random() > 0.8) {
-                createSparkle(mouseX, mouseY);
-            }
-        });
+/* COUNTDOWN */
+function tick(){
+    const t = new Date("Jan 1, 2026").getTime() - Date.now();
+    document.getElementById('days').textContent = Math.max(0,Math.floor(t/86400000));
+    document.getElementById('hours').textContent = Math.max(0,Math.floor(t/3600000)%24);
+    document.getElementById('minutes').textContent = Math.max(0,Math.floor(t/60000)%60);
+    document.getElementById('seconds').textContent = Math.max(0,Math.floor(t/1000)%60);
+}
+setInterval(tick,1000); tick();
 
-        function createSparkle(x, y) {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'cursor-sparkle';
-            const tx = (Math.random() - 0.5) * 100;
-            const ty = (Math.random() - 0.5) * 100;
-            sparkle.style.cssText = `
-                left: ${x}px;
-                top: ${y}px;
-                --tx: ${tx}px;
-                --ty: ${ty}px;
-            `;
-            document.body.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 800);
+/* GAME */
+const gameArea = document.getElementById('gameArea');
+const scoreBoard = document.getElementById('scoreBoard');
+let score = 0;
+
+function spawnVideo(){
+    const v = document.createElement('video');
+    v.src = "YOYO Video.mp4"; // 🔵 CHANGE ONLY THIS
+    v.autoplay = true;
+    v.loop = true;
+    v.muted = true;
+    v.className = "falling-video";
+    v.style.left = Math.random()*(gameArea.clientWidth-80)+"px";
+    v.style.top = "-80px";
+    gameArea.appendChild(v);
+
+    let y = -80;
+    const speed = Math.random()*3+2;
+    const fall = setInterval(()=>{
+        y+=speed;
+        v.style.top = y+"px";
+        if(y>gameArea.clientHeight){
+            clearInterval(fall);
+            v.remove();
         }
+    },16);
 
-        function createFloatingHeart() {
-            const heart = document.createElement('div');
-            heart.className = 'bg-heart';
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDuration = (Math.random() * 5 + 8) + 's';
-            heart.style.animationDelay = Math.random() * 5 + 's';
-            document.getElementById('floatingHearts').appendChild(heart);
-            setTimeout(() => heart.remove(), 15000);
-        }
+    v.onclick = ()=>{
+        score++;
+        scoreBoard.textContent = "Score: "+score;
+        v.remove();
+    };
+}
 
-        setInterval(createFloatingHeart, 1000);
-        for (let i = 0; i < 10; i++) {
-            setTimeout(createFloatingHeart, i * 1000);
-        }
-
-        function createBackgroundSparkle() {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.style.left = Math.random() * 100 + 'vw';
-            sparkle.style.bottom = '-10px';
-            sparkle.style.animationDuration = (Math.random() * 6 + 6) + 's';
-            sparkle.style.opacity = Math.random();
-        
-            document.body.appendChild(sparkle);
-        
-            setTimeout(() => sparkle.remove(), 12000);
-        }
-
-        setInterval(createBackgroundSparkle, 500);
-
-
-        const messages = [
-            { title: "My First Thought", text: "Every morning, you're my first thought and my biggest smile." },
-            { title: "My Favorite Place", text: "Your arms are my favorite place to be, where I feel completely at home." },
-            { title: "My Greatest Joy", text: "Your laughter is the most beautiful sound in my world." },
-            { title: "My Forever", text: "With you, I've found my forever person, my best friend, my everything." },
-            { title: "My Dream Come True", text: "Loving you is the easiest and most natural thing I've ever done." },
-            { title: "My Promise", text: "I promise to love you more with each passing day, through every season of life." }
-        ];
-
-        let revealedCount = 0;
-        const hearts = document.querySelectorAll('.heart');
-        const revealedMessages = document.getElementById('revealedMessages');
-        const countdownSection = document.getElementById('countdownSection');
-        const giftSection = document.getElementById('giftSection');
-        const finalMessage = document.getElementById('finalMessage');
-
-        hearts.forEach(heart => {
-            heart.addEventListener('click', function() {
-                if (this.classList.contains('clicked')) return;
-                
-                this.classList.add('clicked');
-                const messageIndex = parseInt(this.getAttribute('data-message'));
-                const message = messages[messageIndex];
-
-                setTimeout(() => {
-                    const messageCard = document.createElement('div');
-                    messageCard.className = 'message-card';
-                    messageCard.innerHTML = `
-                        <h3>${message.title}</h3>
-                        <p>${message.text}</p>
-                    `;
-                    revealedMessages.appendChild(messageCard);
-                    revealedCount++;
-
-                    if (revealedCount === hearts.length) {
-                        setTimeout(() => {
-                            countdownSection.classList.add('show');
-                        }, 500);
-                    }
-                }, 300);
-            });
-        });
-
-        function updateCountdown() {
-            const newYear = new Date('January 1, 2026 00:00:00').getTime();
-            const now = new Date().getTime();
-            const distance = newYear - now;
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('days').innerText = String(days).padStart(2, '0');
-            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
-
-            if (distance < 0) {
-                document.getElementById('days').innerText = '00';
-                document.getElementById('hours').innerText = '00';
-                document.getElementById('minutes').innerText = '00';
-                document.getElementById('seconds').innerText = '00';
-            }
-        }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-
-        const playGameBtn = document.getElementById('playGameBtn');
-        const gameContainer = document.getElementById('gameContainer');
-        const gameMessage = document.getElementById('gameMessage');
-        const scoreDisplay = document.getElementById('score');
-        const timeLeftDisplay = document.getElementById('timeLeft');
-        const gameOver = document.getElementById('gameOver');
-        const finalScoreDisplay = document.getElementById('finalScore');
-        const gameOverMessage = document.getElementById('gameOverMessage');
-        const playAgainBtn = document.getElementById('playAgainBtn');
-        const moles = document.querySelectorAll('.mole');
-
-        let score = 0;
-        let timeLeft = 30;
-        let gameActive = false;
-        let gameInterval;
-        let countdownInterval;
-
-        playGameBtn.addEventListener('click', startGame);
-        playAgainBtn.addEventListener('click', resetGame);
-
-        moles.forEach(mole => {
-            mole.addEventListener('click', function() {
-                if (!gameActive || !this.classList.contains('up')) return;
-                
-                this.classList.add('hit');
-                this.classList.remove('up');
-                score++;
-                scoreDisplay.textContent = score;
-                gameMessage.textContent = ['Amazing!', 'Perfect!', 'Love it!', 'Yes!'][Math.floor(Math.random() * 4)];
-                
-                setTimeout(() => {
-                    this.classList.remove('hit');
-                }, 400);
-            });
-        });
-
-        function startGame() {
-            gameContainer.classList.add('show');
-            gameOver.classList.remove('show');
-            score = 0;
-            timeLeft = 30;
-            scoreDisplay.textContent = '0';
-            timeLeftDisplay.textContent = '30';
-            gameMessage.textContent = 'Go! Catch the hearts!';
-            
-            setTimeout(() => {
-                gameActive = true;
-                gameInterval = setInterval(popUpMole, 800);
-                countdownInterval = setInterval(updateTimer, 1000);
-            }, 1000);
-
-            setTimeout(() => {
-                giftSection.classList.add('show');
-            }, 2000);
-        }
-
-        function popUpMole() {
-            moles.forEach(mole => mole.classList.remove('up'));
-            const randomMole = moles[Math.floor(Math.random() * moles.length)];
-            randomMole.classList.add('up');
-            
-            setTimeout(() => {
-                randomMole.classList.remove('up');
-            }, 700);
-        }
-
-        function updateTimer() {
-            timeLeft--;
-            timeLeftDisplay.textContent = timeLeft;
-            
-            if (timeLeft <= 0) {
-                endGame();
-            }
-        }
-
-        function endGame() {
-            gameActive = false;
-            clearInterval(gameInterval);
-            clearInterval(countdownInterval);
-            gameOver.classList.add('show');
-            finalScoreDisplay.textContent = score;
-            
-            if (score >= 20) {
-                gameOverMessage.textContent = "You're incredible! Just like always! 💕";
-            } else if (score >= 10) {
-                gameOverMessage.textContent = "Great job, my love! You're amazing! 💖";
-            } else {
-                gameOverMessage.textContent = "You're still perfect to me! 💗";
-            }
-
-            setTimeout(() => {
-                finalMessage.classList.add('show');
-            }, 1000);
-        }
-
-        function resetGame() {
-            gameOver.classList.remove('show');
-            moles.forEach(mole => {
-                mole.classList.remove('up', 'hit');
-            });
-            startGame();
-        }
-
-        const giftMessages = [
-            "Every day with you is a gift I treasure 💝",
-            "You make every moment magical ✨",
-            "My heart belongs to you, today and always 💕"
-        ];
-
-        const giftBoxes = document.querySelectorAll('.gift-box');
-        const giftContents = document.getElementById('giftContents');
-
-        giftBoxes.forEach(box => {
-            box.addEventListener('click', function() {
-                if (this.classList.contains('opened')) return;
-                
-                this.classList.add('opened');
-                const giftIndex = parseInt(this.getAttribute('data-gift'));
-                
-                setTimeout(() => {
-                    const content = document.createElement('div');
-                    content.className = 'gift-content show';
-                    content.innerHTML = `<p style="font-size: 1.3em; color: #2d3436;">${giftMessages[giftIndex]}</p>`;
-                    giftContents.appendChild(content);
-                }, 800);
-            });
-        });
-    </script>
-    <script>
-    const gameArea = document.getElementById('gameArea');
-    const scoreBoard = document.getElementById('scoreBoard');
-    const nextSection = document.getElementById('giftSection'); // or your next section
-    
-    let score = 0;
-    let gameDuration = 30000; // 30 seconds
-    let spawnInterval;
-    let gameTimeout;
-    
-    function spawnVideo() {
-        const video = document.createElement('video');
-        video.className = 'falling-video';
-        video.src = 'YOYO Video.mp4'; // <-- your video path
-        video.autoplay = true;
-        video.loop = true;
-        video.muted = true;
-        
-        // random horizontal start
-        video.style.left = Math.random() * (gameArea.clientWidth - 80) + 'px';
-        video.style.top = '-100px';
-        
-        gameArea.appendChild(video);
-        
-        // falling animation
-        let pos = -100;
-        const fallSpeed = Math.random() * 3 + 2; // pixels per frame
-        const fall = setInterval(() => {
-            pos += fallSpeed;
-            video.style.top = pos + 'px';
-            if(pos > gameArea.clientHeight){
-                clearInterval(fall);
-                video.remove();
-            }
-        }, 16); // ~60fps
-        
-        // click event
-        video.addEventListener('click', () => {
-            score++;
-            scoreBoard.textContent = `Score: ${score}`;
-            video.remove();
-        });
-    }
-    
-    // Start the game
-    function startGame() {
-        score = 0;
-        scoreBoard.textContent = 'Score: 0';
-        spawnInterval = setInterval(spawnVideo, 800); // spawn every 0.8s
-        
-        gameTimeout = setTimeout(() => {
-            clearInterval(spawnInterval);
-            nextSection.classList.add('show'); // reveal next section
-        }, gameDuration);
-    }
-    
-    // Start automatically when page loads or trigger manually
-    startGame();
-    </script>
+const spawner = setInterval(spawnVideo,800);
+setTimeout(()=>{
+    clearInterval(spawner);
+    document.getElementById('giftSection').classList.add('show');
+    document.getElementById('final').classList.add('show');
+},30000);
+</script>
 
 </body>
 </html>
