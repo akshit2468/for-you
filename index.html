@@ -420,14 +420,27 @@
             cursor: none;
         }
 
+        .mole {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: top 0.2s ease;
+            cursor: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .mole img {
+            pointer-events: none;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 50%;
-            pointer-events: none;
+            border-radius: 15px;
         }
-
 
         .mole.up {
             top: 10%;
