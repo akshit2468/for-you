@@ -161,4 +161,184 @@
     text-align: center;
     background: linear-gradient(to bottom, #fad0c4, #ff9a9e);
   }
-  .countdown-section h2 { font-family: 'Playfai
+  .countdown-section h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 20px; }
+  .countdown-timer { font-size: 2rem; margin-bottom: 30px; }
+  .resolutions li { margin: 10px 0; list-style: none; }
+
+  /* Photo Gallery */
+  .gallery {
+    padding: 60px 20px;
+    column-count: 3;
+    column-gap: 15px;
+  }
+  .gallery img {
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .gallery img:hover {
+    transform: scale(1.05);
+  }
+
+  /* Footer */
+  footer {
+    background: rgba(0,0,0,0.8);
+    padding: 40px 20px;
+    text-align: center;
+  }
+  footer p, footer a { color: #fff; }
+  footer form input, footer form textarea {
+    width: 80%;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+  }
+  footer form button {
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: #ff4b5c;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  /* Responsive */
+  @media(max-width:768px){
+    .hero-content h1 { font-size: 1.8rem; }
+    .timeline-card { max-width: 90%; }
+    .gallery { column-count: 2; }
+  }
+  @media(max-width:480px){
+    .gallery { column-count: 1; }
+    .hero-content p { font-size: 1rem; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- Hero Section -->
+<section class="hero">
+  <video autoplay muted loop>
+    <source src="fireworks.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
+  <div class="hero-content">
+    <h1>Happy New Year 2026, My Love [Her Name]!</h1>
+    <p>You've made 2025 magical. Can't wait for our forever adventures ahead.</p>
+    <button class="pulse-btn" onclick="scrollToLetter()">Enter Our Love Story</button>
+    <!-- Optional personal photo -->
+    <!-- <img src="ourphoto.jpg" alt="Us" style="margin-top:20px;border-radius:15px;width:200px;"> -->
+  </div>
+</section>
+
+<!-- Floating hearts animation -->
+<script>
+  for(let i=0;i<20;i++){
+    let heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random()*100+'vw';
+    heart.style.animationDuration = (5+Math.random()*5)+'s';
+    heart.innerText = '💖';
+    document.body.appendChild(heart);
+  }
+</script>
+
+<!-- Love Letter -->
+<section class="love-letter" id="loveLetter">
+  <h2>My Love Letter</h2>
+  <div class="typewriter">
+    <p>My dearest [Her Name], 💋 As 2025 ends, my heart overflows with gratitude for you. You light up my world brighter than any firework. In 2026, I promise more laughter, cuddles, and dreams chased together. I love you more than words—forever yours, [Your Name]. ✨❤️</p>
+  </div>
+</section>
+
+<!-- Memories Timeline -->
+<section class="timeline">
+  <h2>Our Memories</h2>
+  <div class="timeline-container">
+    <div class="timeline-card">
+      <img src="placeholder1.jpg" alt="First Date">
+      <strong>Our first date:</strong> [Describe briefly]
+    </div>
+    <div class="timeline-card">
+      <img src="placeholder2.jpg" alt="Best Trip">
+      <strong>Best trip:</strong> [Memory]
+    </div>
+    <div class="timeline-card">
+      <img src="placeholder3.jpg" alt="Funniest Moment">
+      <strong>Funniest moment:</strong> [Memory]
+    </div>
+    <div class="timeline-card">
+      <img src="placeholder4.jpg" alt="Why I Love You">
+      <strong>Why I love you:</strong> Your smile melts me.
+    </div>
+    <div class="timeline-card">
+      <strong>2026:</strong> More memories to make!
+    </div>
+  </div>
+</section>
+
+<!-- Countdown & Resolutions -->
+<section class="countdown-section">
+  <h2>Countdown to 2026</h2>
+  <div class="countdown-timer" id="countdown">00d 00h 00m 00s</div>
+  <ul class="resolutions">
+    <li>- More date nights under the stars</li>
+    <li>- Travel to [dream destination]</li>
+    <li>- Grow old loving you harder</li>
+  </ul>
+</section>
+
+<!-- Photo Gallery -->
+<section class="gallery">
+  <img src="placeholder1.jpg" alt="Couple 1">
+  <img src="placeholder2.jpg" alt="Couple 2">
+  <img src="placeholder3.jpg" alt="Couple 3">
+  <img src="placeholder4.jpg" alt="Couple 4">
+  <img src="placeholder5.jpg" alt="Couple 5">
+  <img src="placeholder6.jpg" alt="Couple 6">
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>Send me your reply, my love 💌</p>
+  <form>
+    <input type="text" placeholder="Your Name">
+    <textarea placeholder="Message"></textarea>
+    <button type="submit">Send</button>
+  </form>
+  <p>Play this on loop: <a href="[Her favorite song link]" target="_blank">🎵 Love Song</a></p>
+</footer>
+
+<!-- Scripts -->
+<script>
+  function scrollToLetter(){
+    document.getElementById('loveLetter').scrollIntoView({behavior: 'smooth'});
+  }
+
+  // Countdown timer to Jan 1, 2026 00:00 IST
+  const countdown = setInterval(() => {
+    const now = new Date().getTime();
+    const target = new Date("January 1, 2026 00:00:00 GMT+0530").getTime();
+    const diff = target - now;
+
+    if(diff <= 0){
+      clearInterval(countdown);
+      document.getElementById("countdown").innerText = "✨ Happy 2026! ✨";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+    const seconds = Math.floor((diff % (1000*60)) / 1000);
+
+    document.getElementById("countdown").innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }, 1000);
+</script>
+
+</body>
+</html>
