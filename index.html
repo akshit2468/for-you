@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You 💛 | Happy New Year 2026</title>
+    <title>For You 💙 | Happy New Year 2026</title>
     <style>
         * {
             margin: 0;
@@ -31,6 +31,13 @@
             background-size: 400% 400%;
             animation: gradientFlow 18s ease infinite;
         }
+
+        :root {
+            --heart-blue-1: #4facfe;
+            --heart-blue-2: #00c6ff;
+            --heart-glow: rgba(79, 172, 254, 0.9);
+        }
+
         
         @keyframes gradientFlow {
             0% { background-position: 0% 50%; }
@@ -52,21 +59,23 @@
         .cursor-heart {
             width: 30px;
             height: 30px;
-            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            background: linear-gradient(135deg, var(--heart-blue-1), var(--heart-blue-2));
             position: relative;
             transform: rotate(-45deg);
-            filter: drop-shadow(0 0 10px rgba(254, 202, 87, 0.8));
+            filter: drop-shadow(0 0 12px var(--heart-glow));
         }
+
 
         .cursor-heart::before,
         .cursor-heart::after {
             content: "";
             width: 30px;
             height: 30px;
-            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            background: linear-gradient(135deg, var(--heart-blue-1), var(--heart-blue-2));
             border-radius: 50%;
             position: absolute;
         }
+
 
         .cursor-heart::before {
             top: -15px;
@@ -153,14 +162,15 @@
         .heart {
             width: 120px;
             height: 120px;
-            background: linear-gradient(135deg, #ff9ff3 0%, #feca57 100%);
+            background: linear-gradient(135deg, var(--heart-blue-1), var(--heart-blue-2));
             position: relative;
             transform: rotate(-45deg);
             cursor: none;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 0 30px var(--heart-glow);
             animation: float 3s ease-in-out infinite;
         }
+
 
         .heart:hover {
             transform: rotate(-45deg) scale(1.1);
@@ -172,10 +182,11 @@
             content: "";
             width: 120px;
             height: 120px;
-            background: linear-gradient(135deg, #ff9ff3 0%, #feca57 100%);
+            background: linear-gradient(135deg, var(--heart-blue-1), var(--heart-blue-2));
             border-radius: 50%;
             position: absolute;
         }
+
 
         .heart::before {
             top: -60px;
@@ -686,20 +697,21 @@
             position: absolute;
             width: 30px;
             height: 30px;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(79, 172, 254, 0.35);
             transform: rotate(-45deg);
             animation: floatUp 10s infinite ease-in;
         }
-
+        
         .bg-heart::before,
         .bg-heart::after {
             content: "";
             width: 30px;
             height: 30px;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(79, 172, 254, 0.35);
             border-radius: 50%;
             position: absolute;
         }
+
 
         .bg-heart::before {
             top: -15px;
@@ -791,28 +803,28 @@
     <div class="floating-hearts" id="floatingHearts"></div>
 
     <div class="container">
-        <h1>💛 For You, My Love 💛</h1>
+        <h1>💙 For You, My Love 💙</h1>
         <p class="subtitle">Click on each heart to reveal a special message as we countdown to our New Year together!</p>
 
         <!-- Interactive hearts -->
         <div class="heart-container" id="heartContainer">
             <div class="heart" data-message="0">
-                <span class="heart-text">💕</span>
+                <span class="heart-text">💙</span>
             </div>
             <div class="heart" data-message="1">
-                <span class="heart-text">💖</span>
+                <span class="heart-text">💙</span>
             </div>
             <div class="heart" data-message="2">
-                <span class="heart-text">💗</span>
+                <span class="heart-text">💙</span>
             </div>
             <div class="heart" data-message="3">
-                <span class="heart-text">💓</span>
+                <span class="heart-text">💙</span>
             </div>
             <div class="heart" data-message="4">
-                <span class="heart-text">💞</span>
+                <span class="heart-text">💙</span>
             </div>
             <div class="heart" data-message="5">
-                <span class="heart-text">💝</span>
+                <span class="heart-text">💙</span>
             </div>
         </div>
 
