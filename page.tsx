@@ -2,215 +2,364 @@
 
 import { useEffect, useRef, useState } from "react"
 
-interface Particle {
+interface Ripple {
   id: number
   x: number
   y: number
-  tx: number
-  ty: number
-  size: number
-  color: string
-  rotation: number
+  startTime: number
 }
 
-export default function SparklePage() {
-  const [particles, setParticles] = useState<Particle[]>([])
+interface FloatingShape {
+  id: number
+  x: number
+  y: number
+  size: number
+  speed: number
+  direction: number
+  shape: "circle" | "square" | "triangle"
+  color: string
+}
+
+const CARDS = [
+  { title: "Fluid Interactions", desc: "Experience smooth, liquid-like animations", icon: "~" },
+  { title: "Dynamic Patterns", desc: "Watch geometric shapes dance and morph", icon: "◊" },
+  { title: "Ripple Effects", desc: "Create beautiful water-like ripples", icon: "○" },
+  { title: "Morphing Shapes", desc: "See elements transform in real-time", icon: "▵" },
+  { title: "Color Waves", desc: "Surf through vibrant color transitions", icon: "≋" },
+  { title: "Particle Magic", desc: "Generate mesmerizing particle systems", icon: "✦" },
+]
+
+export default function InteractivePage() {
+  const [ripples, setRipples] = useState<Ripple[]>([])
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
-  const [revealedSections, setRevealedSections] = useState<number[]>([])
-  const [scrollProgress, setScrollProgress] = useState(0)
-  const particleIdRef = useRef(0)
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null)
+  const [floatingShapes, setFloatingShapes] = useState<FloatingShape[]>([])
+  const rippleIdRef = useRef(0)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const animationFrameRef = useRef<number>()
+
+  // Initialize floating shapes
+  useEffect(() => {
+    const shapes: FloatingShape[] = []
+    const colors = ["#a78bfa", "#60a5fa", "#f472b6", "#fbbf24"]
+    for (let i = 0; i < 20; i++) {
+      shapes.push({
+        id: i,
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        size: 20 + Math.random() * 40,
+        speed: 0.2 + Math.random() * 0.5,
+        direction: Math.random() * Math.PI * 2,
+        shape: ["circle", "square", "triangle"][Math.floor(Math.random() * 3)] as any,
+        color: colors[Math.floor(Math.random() * colors.length)],
+      })
+    }
+    setFloatingShapes(shapes)
+  }, [])
+
+  // Animate floating shapes
+  useEffect(() => {
+    const animate = () => {
+      setFloatingShapes((prev) =>
+        prev.map((shape) => {
+          let newX = shape.x + Math.cos(shape.direction) * shape.speed
+          let newY = shape.y + Math.sin(shape.direction) * shape.speed
+          let newDirection = shape.direction
+
+          if (newX < 0 || newX > window.innerWidth) {
+            newDirection = Math.PI - shape.direction
+            newX = Math.max(0, Math.min(window.innerWidth, newX))
+          }
+          if (newY < 0 || newY > window.innerHeight) {
+            newDirection = -shape.direction
+            newY = Math.max(0, Math.min(window.innerHeight, newY))
+          }
+
+          return { ...shape, x: newX, y: newY, direction: newDirection }
+        }),
+      )
+      animationFrameRef.current = requestAnimationFrame(animate)
+    }
+    animationFrameRef.current = requestAnimationFrame(animate)
+    return () => {
+      if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current)
+    }
+  }, [])
+
+  // Draw grid pattern on canvas
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    const resize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    resize()
+    window.addEventListener("resize", resize)
+
+    let time = 0
+    const draw = () => {
+      ctx.fillStyle = "#0f0f23"
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+      // Draw animated grid
+      ctx.strokeStyle = "rgba(139, 92, 246, 0.1)"
+      ctx.lineWidth = 1
+
+      const gridSize = 50
+      const offset = time % gridSize
+
+      for (let x = -gridSize + offset; x < canvas.width; x += gridSize) {
+        ctx.beginPath()
+        ctx.moveTo(x, 0)
+        ctx.lineTo(x, canvas.height)
+        ctx.stroke()
+      }
+
+      for (let y = -gridSize + offset; y < canvas.height; y += gridSize) {
+        ctx.beginPath()
+        ctx.moveTo(0, y)
+        ctx.lineTo(canvas.width, y)
+        ctx.stroke()
+      }
+
+      // Draw wave patterns
+      ctx.strokeStyle = "rgba(96, 165, 250, 0.15)"
+      ctx.lineWidth = 2
+      for (let i = 0; i < 3; i++) {
+        ctx.beginPath()
+        for (let x = 0; x < canvas.width; x += 5) {
+          const y = canvas.height / 2 + Math.sin((x + time * 2 + i * 100) * 0.01) * 50
+          if (x === 0) ctx.moveTo(x, y)
+          else ctx.lineTo(x, y)
+        }
+        ctx.stroke()
+      }
+
+      time += 1
+      requestAnimationFrame(draw)
+    }
+    draw()
+
+    return () => window.removeEventListener("resize", resize)
+  }, [])
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setCursorPos({ x: e.clientX, y: e.clientY })
-
-      // Create particle trail on move
-      if (Math.random() > 0.7) {
-        createParticle(e.clientX, e.clientY)
-      }
     }
 
     const handleClick = (e: MouseEvent) => {
-      // Create burst of particles on click
-      for (let i = 0; i < 8; i++) {
-        setTimeout(() => createParticle(e.clientX, e.clientY), i * 20)
-      }
-    }
-
-    const handleScroll = () => {
-      const scrolled = window.scrollY
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight
-      setScrollProgress((scrolled / maxScroll) * 100)
+      createRipple(e.clientX, e.clientY)
     }
 
     window.addEventListener("mousemove", handleMouseMove)
     window.addEventListener("click", handleClick)
-    window.addEventListener("scroll", handleScroll)
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove)
       window.removeEventListener("click", handleClick)
-      window.removeEventListener("scroll", handleScroll)
     }
   }, [])
 
-  const createParticle = (x: number, y: number) => {
-    const colors = ["#06b6d4", "#8b5cf6", "#ec4899", "#f59e0b", "#10b981"]
-    const angle = Math.random() * Math.PI * 2
-    const distance = 40 + Math.random() * 60
-
-    const newParticle: Particle = {
-      id: particleIdRef.current++,
+  const createRipple = (x: number, y: number) => {
+    const newRipple: Ripple = {
+      id: rippleIdRef.current++,
       x,
       y,
-      tx: Math.cos(angle) * distance,
-      ty: Math.sin(angle) * distance,
-      size: 4 + Math.random() * 8,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      rotation: Math.random() * 360,
+      startTime: Date.now(),
     }
 
-    setParticles((prev) => [...prev, newParticle])
+    setRipples((prev) => [...prev, newRipple])
 
     setTimeout(() => {
-      setParticles((prev) => prev.filter((p) => p.id !== newParticle.id))
-    }, 1000)
+      setRipples((prev) => prev.filter((r) => r.id !== newRipple.id))
+    }, 1500)
   }
-
-  const revealSection = (index: number) => {
-    if (!revealedSections.includes(index)) {
-      setRevealedSections([...revealedSections, index])
-    }
-  }
-
-  const sections = [
-    { emoji: "✨", title: "Create Magic", desc: "Every interaction creates something beautiful" },
-    { emoji: "🎨", title: "Express Yourself", desc: "Your movements paint the canvas" },
-    { emoji: "🌈", title: "Vibrant Colors", desc: "Watch the rainbow particles dance" },
-    { emoji: "💫", title: "Cosmic Wonder", desc: "Explore the universe of interaction" },
-  ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-x-hidden cursor-none">
-      {/* Custom cursor */}
-      <div
-        className="fixed pointer-events-none z-50 mix-blend-screen"
-        style={{
-          left: cursorPos.x - 16,
-          top: cursorPos.y - 16,
-          transition: "all 0.1s ease-out",
-        }}
-      >
-        <div className="w-8 h-8 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full blur-md opacity-75 animate-pulse" />
-          <div className="absolute inset-2 bg-white rounded-full" />
-        </div>
-      </div>
+    <div className="min-h-screen bg-[#0f0f23] text-white overflow-hidden relative">
+      {/* Animated background canvas */}
+      <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none" />
 
-      {/* Particles */}
-      {particles.map((particle) => (
+      {/* Floating shapes */}
+      {floatingShapes.map((shape) => (
         <div
-          key={particle.id}
-          className="fixed pointer-events-none z-40"
+          key={shape.id}
+          className="fixed pointer-events-none opacity-10 transition-all duration-300"
           style={{
-            left: particle.x,
-            top: particle.y,
-            width: particle.size,
-            height: particle.size,
+            left: shape.x,
+            top: shape.y,
+            width: shape.size,
+            height: shape.size,
+            transform: "translate(-50%, -50%)",
           }}
         >
-          <div
-            className="w-full h-full transition-all duration-1000 ease-out"
-            style={{
-              transform: `translate(${particle.tx}px, ${particle.ty}px) rotate(${particle.rotation}deg) scale(0)`,
-              opacity: 0,
-              background: particle.color,
-              borderRadius: "50%",
-              boxShadow: `0 0 ${particle.size * 2}px ${particle.color}`,
-            }}
-          />
+          {shape.shape === "circle" && (
+            <div className="w-full h-full rounded-full blur-sm" style={{ backgroundColor: shape.color }} />
+          )}
+          {shape.shape === "square" && (
+            <div className="w-full h-full rotate-45 blur-sm" style={{ backgroundColor: shape.color }} />
+          )}
+          {shape.shape === "triangle" && (
+            <div
+              className="w-0 h-0 blur-sm"
+              style={{
+                borderLeft: `${shape.size / 2}px solid transparent`,
+                borderRight: `${shape.size / 2}px solid transparent`,
+                borderBottom: `${shape.size}px solid ${shape.color}`,
+              }}
+            />
+          )}
         </div>
       ))}
 
-      {/* Scroll progress bar */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-slate-800 z-50">
-        <div
-          className="h-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 transition-all duration-300"
-          style={{ width: `${scrollProgress}%` }}
-        />
-      </div>
-
-      {/* Hero section */}
-      <div className="min-h-screen flex flex-col items-center justify-center px-4 relative">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
-          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
-          <div className="absolute bottom-1/4 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000" />
-        </div>
-
-        <div className="relative z-10 text-center space-y-8">
-          <h1 className="text-7xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-fade-in text-pretty">
-            Interactive Sparkle Experience
-          </h1>
-          <p className="text-2xl text-slate-300 animate-fade-in animation-delay-500 text-balance">
-            Move your cursor and click to create magical particles
-          </p>
-          <div className="flex gap-4 justify-center animate-fade-in animation-delay-1000">
-            <div className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full font-semibold">
-              Scroll to Explore
-            </div>
-          </div>
+      {/* Liquid cursor */}
+      <div
+        className="fixed pointer-events-none z-50 mix-blend-screen transition-all duration-150 ease-out"
+        style={{
+          left: cursorPos.x,
+          top: cursorPos.y,
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        <div className="relative w-12 h-12">
+          <div className="absolute inset-0 bg-gradient-to-br from-violet-400 via-blue-400 to-pink-400 rounded-full blur-xl opacity-60 animate-pulse" />
+          <div className="absolute inset-2 bg-gradient-to-br from-violet-300 via-blue-300 to-pink-300 rounded-full blur-md" />
+          <div className="absolute inset-4 bg-white rounded-full" />
         </div>
       </div>
 
-      {/* Interactive sections */}
-      <div className="max-w-4xl mx-auto px-4 py-20 space-y-32">
-        {sections.map((section, index) => (
+      {/* Ripples */}
+      {ripples.map((ripple) => {
+        const elapsed = Date.now() - ripple.startTime
+        const progress = elapsed / 1500
+        const scale = 1 + progress * 3
+        const opacity = 1 - progress
+
+        return (
           <div
-            key={index}
-            className={`transition-all duration-700 ${
-              revealedSections.includes(index) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
-            }`}
-            onMouseEnter={() => revealSection(index)}
+            key={ripple.id}
+            className="fixed pointer-events-none z-40"
+            style={{
+              left: ripple.x,
+              top: ripple.y,
+              transform: "translate(-50%, -50%)",
+            }}
           >
-            <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-lg rounded-3xl p-12 border border-slate-700 hover:border-purple-500 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20">
-              <div className="text-7xl mb-6 text-center animate-bounce-slow">{section.emoji}</div>
-              <h2 className="text-4xl font-bold text-center mb-4 bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text text-transparent">
-                {section.title}
-              </h2>
-              <p className="text-xl text-center text-slate-300">{section.desc}</p>
-            </div>
+            <div
+              className="rounded-full border-4 border-violet-400 transition-all"
+              style={{
+                width: 100 * scale,
+                height: 100 * scale,
+                opacity: opacity * 0.6,
+              }}
+            />
+            <div
+              className="absolute inset-0 rounded-full border-4 border-blue-400 transition-all"
+              style={{
+                width: 100 * scale * 0.7,
+                height: 100 * scale * 0.7,
+                opacity: opacity * 0.8,
+                transform: "translate(-50%, -50%)",
+                left: "50%",
+                top: "50%",
+              }}
+            />
           </div>
-        ))}
-      </div>
+        )
+      })}
 
-      {/* Stats section */}
-      <div className="max-w-6xl mx-auto px-4 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-gradient-to-br from-cyan-500/10 to-cyan-500/5 backdrop-blur-lg rounded-2xl p-8 border border-cyan-500/30 hover:scale-105 transition-transform">
-            <div className="text-5xl font-bold text-cyan-400 mb-2">{particles.length}</div>
-            <div className="text-slate-400 text-lg">Active Particles</div>
+      {/* Main content */}
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-8">
+        {/* Hero section */}
+        <div className="text-center mb-20 space-y-6">
+          <div className="inline-block px-6 py-2 rounded-full bg-violet-500/20 border border-violet-400/30 backdrop-blur-sm mb-4">
+            <span className="text-violet-300 text-sm font-medium">Immersive Experience</span>
           </div>
-          <div className="bg-gradient-to-br from-purple-500/10 to-purple-500/5 backdrop-blur-lg rounded-2xl p-8 border border-purple-500/30 hover:scale-105 transition-transform">
-            <div className="text-5xl font-bold text-purple-400 mb-2">{revealedSections.length}</div>
-            <div className="text-slate-400 text-lg">Sections Discovered</div>
-          </div>
-          <div className="bg-gradient-to-br from-pink-500/10 to-pink-500/5 backdrop-blur-lg rounded-2xl p-8 border border-pink-500/30 hover:scale-105 transition-transform">
-            <div className="text-5xl font-bold text-pink-400 mb-2">{scrollProgress.toFixed(0)}%</div>
-            <div className="text-slate-400 text-lg">Journey Complete</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Final section */}
-      <div className="min-h-screen flex items-center justify-center px-4 pb-20">
-        <div className="max-w-2xl text-center space-y-8">
-          <h2 className="text-6xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Keep Exploring
-          </h2>
-          <p className="text-2xl text-slate-300 text-balance">
-            Every movement creates beauty. Every click tells a story. This is your interactive canvas.
+          <h1 className="text-8xl font-bold tracking-tight mb-6">
+            <span className="inline-block hover:scale-110 transition-transform duration-300 cursor-pointer bg-gradient-to-r from-violet-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
+              Create
+            </span>
+            <br />
+            <span className="inline-block hover:scale-110 transition-transform duration-300 cursor-pointer bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+              Interact
+            </span>
+            <br />
+            <span className="inline-block hover:scale-110 transition-transform duration-300 cursor-pointer bg-gradient-to-r from-pink-400 via-purple-400 to-violet-400 bg-clip-text text-transparent">
+              Explore
+            </span>
+          </h1>
+          <p className="text-2xl text-slate-400 max-w-2xl mx-auto text-balance">
+            A new dimension of web interaction with liquid animations and dynamic patterns
           </p>
+        </div>
+
+        {/* Grid of interactive cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl w-full">
+          {CARDS.map((card, index) => (
+            <div
+              key={index}
+              className="group relative"
+              onMouseEnter={() => setHoveredCard(index)}
+              onMouseLeave={() => setHoveredCard(null)}
+            >
+              <div
+                className={`relative h-64 rounded-3xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-xl border transition-all duration-500 overflow-hidden ${
+                  hoveredCard === index
+                    ? "border-violet-400 scale-105 shadow-2xl shadow-violet-500/20"
+                    : "border-slate-700"
+                }`}
+              >
+                {/* Animated gradient overlay */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br from-violet-500/10 via-blue-500/10 to-pink-500/10 transition-opacity duration-500 ${
+                    hoveredCard === index ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+
+                {/* Content */}
+                <div className="relative h-full flex flex-col items-center justify-center p-8 text-center">
+                  <div
+                    className={`text-7xl mb-4 transition-all duration-500 ${
+                      hoveredCard === index ? "scale-125 rotate-12" : "scale-100 rotate-0"
+                    }`}
+                    style={{
+                      color: hoveredCard === index ? "#a78bfa" : "#94a3b8",
+                    }}
+                  >
+                    {card.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2 text-slate-100">{card.title}</h3>
+                  <p className="text-slate-400">{card.desc}</p>
+                </div>
+
+                {/* Animated border effect */}
+                {hoveredCard === index && (
+                  <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-violet-400 to-transparent animate-shimmer" />
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="mt-20 text-center space-y-8">
+          <div className="inline-flex gap-4">
+            <button className="px-8 py-4 bg-gradient-to-r from-violet-500 to-purple-600 rounded-full font-bold text-lg hover:scale-105 transition-transform duration-300 shadow-lg shadow-violet-500/50">
+              Start Exploring
+            </button>
+            <button className="px-8 py-4 bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-full font-bold text-lg hover:scale-105 transition-transform duration-300">
+              Learn More
+            </button>
+          </div>
+          <p className="text-slate-500">Click anywhere to create ripples • Move to paint with light</p>
         </div>
       </div>
     </div>
