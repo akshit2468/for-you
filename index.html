@@ -697,9 +697,11 @@
             position: absolute;
             width: 30px;
             height: 30px;
-            background: rgba(79, 172, 254, 0.35);
+            background: rgba(255, 255, 255, 0.35);
             transform: rotate(-45deg);
             animation: floatUp 10s infinite ease-in;
+            filter: blur(0.3px);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
         }
         
         .bg-heart::before,
@@ -707,9 +709,10 @@
             content: "";
             width: 30px;
             height: 30px;
-            background: rgba(79, 172, 254, 0.35);
+            background: rgba(255, 255, 255, 0.35);
             border-radius: 50%;
             position: absolute;
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
         }
 
 
