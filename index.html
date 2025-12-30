@@ -8,7 +8,6 @@
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto&display=swap" rel="stylesheet">
 
-<!-- Styles -->
 <style>
   /* Reset & base */
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,20 +28,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    overflow: hidden;
-  }
-  .hero video {
-    position: absolute;
-    top:0; left:0;
-    width:100%; height:100%;
-    object-fit: cover;
-    z-index: -1;
-  }
-  .hero .overlay {
-    position: absolute;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(0,0,0,0.4);
+    background: linear-gradient(to bottom, #ff9a9e, #fad0c4); /* gradient instead of video */
   }
   .hero-content {
     position: relative;
@@ -149,10 +135,17 @@
   .timeline-card:hover {
     transform: rotateY(10deg);
   }
-  .timeline-card img {
-    width: 100%;
+  /* Replace images with colored placeholders */
+  .timeline-card .placeholder-img {
+    height: 150px;
+    background: #ff9a9e;
     border-radius: 10px;
     margin-bottom: 10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+    font-weight:bold;
   }
 
   /* Countdown */
@@ -171,14 +164,21 @@
     column-count: 3;
     column-gap: 15px;
   }
-  .gallery img {
+  .gallery .placeholder-img {
     width: 100%;
     margin-bottom: 15px;
     border-radius: 15px;
-    cursor: pointer;
+    background:#ff4b5c;
+    height:150px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+    font-weight:bold;
     transition: transform 0.3s;
+    cursor:pointer;
   }
-  .gallery img:hover {
+  .gallery .placeholder-img:hover {
     transform: scale(1.05);
   }
 
@@ -222,16 +222,10 @@
 
 <!-- Hero Section -->
 <section class="hero">
-  <video autoplay muted loop>
-    <source src="fireworks.mp4" type="video/mp4">
-  </video>
-  <div class="overlay"></div>
   <div class="hero-content">
     <h1>Happy New Year 2026, My Love [Her Name]!</h1>
     <p>You've made 2025 magical. Can't wait for our forever adventures ahead.</p>
     <button class="pulse-btn" onclick="scrollToLetter()">Enter Our Love Story</button>
-    <!-- Optional personal photo -->
-    <!-- <img src="ourphoto.jpg" alt="Us" style="margin-top:20px;border-radius:15px;width:200px;"> -->
   </div>
 </section>
 
@@ -260,19 +254,19 @@
   <h2>Our Memories</h2>
   <div class="timeline-container">
     <div class="timeline-card">
-      <img src="placeholder1.jpg" alt="First Date">
+      <div class="placeholder-img">First Date</div>
       <strong>Our first date:</strong> [Describe briefly]
     </div>
     <div class="timeline-card">
-      <img src="placeholder2.jpg" alt="Best Trip">
+      <div class="placeholder-img">Best Trip</div>
       <strong>Best trip:</strong> [Memory]
     </div>
     <div class="timeline-card">
-      <img src="placeholder3.jpg" alt="Funniest Moment">
+      <div class="placeholder-img">Funniest Moment</div>
       <strong>Funniest moment:</strong> [Memory]
     </div>
     <div class="timeline-card">
-      <img src="placeholder4.jpg" alt="Why I Love You">
+      <div class="placeholder-img">Why I Love You</div>
       <strong>Why I love you:</strong> Your smile melts me.
     </div>
     <div class="timeline-card">
@@ -294,12 +288,12 @@
 
 <!-- Photo Gallery -->
 <section class="gallery">
-  <img src="placeholder1.jpg" alt="Couple 1">
-  <img src="placeholder2.jpg" alt="Couple 2">
-  <img src="placeholder3.jpg" alt="Couple 3">
-  <img src="placeholder4.jpg" alt="Couple 4">
-  <img src="placeholder5.jpg" alt="Couple 5">
-  <img src="placeholder6.jpg" alt="Couple 6">
+  <div class="placeholder-img">Photo 1</div>
+  <div class="placeholder-img">Photo 2</div>
+  <div class="placeholder-img">Photo 3</div>
+  <div class="placeholder-img">Photo 4</div>
+  <div class="placeholder-img">Photo 5</div>
+  <div class="placeholder-img">Photo 6</div>
 </section>
 
 <!-- Footer -->
