@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>For You ♥</title>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    color: #333;
+    text-align: center;
+  }
+  header {
+    padding: 60px 20px;
+  }
+  header h1 {
+    font-size: 3rem;
+    color: #fff;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  }
+  .heart {
+    font-size: 4rem;
+    color: #ff4b5c;
+    cursor: pointer;
+    animation: beat 1s infinite alternate;
+  }
+  @keyframes beat {
+    to { transform: scale(1.2); }
+  }
+  .message-box {
+    margin-top: 30px;
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.8);
+    padding: 20px;
+    border-radius: 15px;
+    display: inline-block;
+    max-width: 80%;
+  }
+  .countdown {
+    margin-top: 40px;
+    font-size: 2rem;
+    color: #fff;
+  }
+  .footer {
+    margin-top: 50px;
+    font-size: .9rem;
+    color: #222;
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>To My Beloved ♥</h1>
+  <div class="heart" onclick="revealLove()">💖</div>
+</header>
+
+<div id="message" class="message-box" style="display:none;">
+  <p>Every moment with you feels like magic 💫.</p>
+  <p>I made this just for you — happy New Year! ❤️</p>
+</div>
+
+<div class="countdown" id="countdown">
+  Countdown to 2026: <span id="days">00</span>d 
+  <span id="hours">00</span>h 
+  <span id="minutes">00</span>m 
+  <span id="seconds">00</span>s
+</div>
+
+<div class="footer">
+  <p>Made with love by me 💕</p>
+</div>
+
+<script>
+  // ♥ Reveal message
+  function revealLove() {
+    document.getElementById("message").style.display = "block";
+  }
+
+  // ♥ Countdown Timer to Jan 1, 2026
+  const endDate = new Date("January 1, 2026 00:00:00").getTime();
+  const timer = setInterval(() => {
+    const now = new Date().getTime();
+    const diff = endDate - now;
+
+    if (diff < 0) {
+      clearInterval(timer);
+      document.getElementById("countdown").innerText = "✨ Happy 2026! ✨";
+      return;
+    }
+
+    document.getElementById("days").innerText = Math.floor(diff / (1000*60*60*24));
+    document.getElementById("hours").innerText = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    document.getElementById("minutes").innerText = Math.floor((diff % (1000*60*60)) / (1000*60));
+    document.getElementById("seconds").innerText = Math.floor((diff % (1000*60)) / 1000);
+  }, 1000);
+</script>
+
+</body>
+</html>
