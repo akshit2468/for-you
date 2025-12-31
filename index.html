@@ -905,6 +905,11 @@
             -webkit-background-clip: unset !important;
         }
 
+        .gift-media video {
+            background: black;
+        }
+
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2em;
@@ -1030,50 +1035,55 @@
         </div>
 
         <!-- Gift section -->
-        <div class="gifts-container">
-
-            <!-- GIFT 1 : PHOTO -->
-            <div class="gift-wrapper" onclick="openGift(this)">
-                <div class="gift-box">
-                    <div class="gift-wrap">
-                        <span class="gift-emoji">🎁</span>
+        <div class="gift-section show" id="giftSection">
+            <h2>🎁 Gifts for You 🎁</h2>
+            <p>Tap each gift 💙</p>
+        
+            <div class="gifts-container">
+        
+                <!-- GIFT 1 : PHOTO -->
+                <div class="gift-wrapper" onclick="openGift(this)">
+                    <div class="gift-box">
+                        <div class="gift-wrap">
+                            <span class="gift-emoji">🎁</span>
+                        </div>
+                        <div class="gift-label">Gift 1</div>
                     </div>
-                    <div class="gift-label">Gift 1</div>
-                </div>
         
-                <div class="gift-media">
-                    <img src="giftphoto1.jpeg" alt="Gift Photo 1">
-                </div>
-            </div>
-        
-            <!-- GIFT 2 : PHOTO -->
-            <div class="gift-wrapper" onclick="openGift(this)">
-                <div class="gift-box">
-                    <div class="gift-wrap">
-                        <span class="gift-emoji">🎁</span>
+                    <div class="gift-media">
+                        <img src="giftphoto1.jpeg" alt="">
                     </div>
-                    <div class="gift-label">Gift 2</div>
                 </div>
-                    <video src="giftvideo.mp4" controls autoplay loop></video>
-                <div class="gift-media">
-                    
-                </div>
-            </div>
         
-            <!-- GIFT 3 : VIDEO -->
-            <div class="gift-wrapper" onclick="openGift(this)">
-                <div class="gift-box">
-                    <div class="gift-wrap">
-                        <span class="gift-emoji">🎁</span>
+                <!-- GIFT 2 : VIDEO -->
+                <div class="gift-wrapper" onclick="openGift(this)">
+                    <div class="gift-box">
+                        <div class="gift-wrap">
+                            <span class="gift-emoji">🎁</span>
+                        </div>
+                        <div class="gift-label">Gift 2</div>
                     </div>
-                    <div class="gift-label">Gift 3</div>
+        
+                    <div class="gift-media">
+                        <video src="giftvideo.mp4" controls autoplay loop></video>
+                    </div>
                 </div>
         
-                <div class="gift-media">
-                    <img src="giftphoto2.jpeg" alt="Gift Photo 2">
+                <!-- GIFT 3 : PHOTO -->
+                <div class="gift-wrapper" onclick="openGift(this)">
+                    <div class="gift-box">
+                        <div class="gift-wrap">
+                            <span class="gift-emoji">🎁</span>
+                        </div>
+                        <div class="gift-label">Gift 3</div>
+                    </div>
+        
+                    <div class="gift-media">
+                        <img src="giftphoto2.jpeg" alt="">
+                    </div>
                 </div>
+        
             </div>
-        
         </div>
 
 
@@ -1320,31 +1330,6 @@
             });
             startGame();
         }
-
-        const giftMessages = [
-            "Every day with you is a gift I treasure 💝",
-            "You make every moment magical ✨",
-            "My heart belongs to you, today and always 💕"
-        ];
-
-        const giftBoxes = document.querySelectorAll('.gift-box');
-        const giftContents = document.getElementById('giftContents');
-
-        giftBoxes.forEach(box => {
-            box.addEventListener('click', function() {
-                if (this.classList.contains('opened')) return;
-                
-                this.classList.add('opened');
-                const giftIndex = parseInt(this.getAttribute('data-gift'));
-                
-                setTimeout(() => {
-                    const content = document.createElement('div');
-                    content.className = 'gift-content show';
-                    content.innerHTML = `<p style="font-size: 1.3em; color: #2d3436;">${giftMessages[giftIndex]}</p>`;
-                    giftContents.appendChild(content);
-                }, 800);
-            });
-        });
     </script>
     <script>
         function openGift(wrapper) {
