@@ -537,6 +537,41 @@
         }
 
         /* Gift section */
+        
+        .gift-wrapper {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+        }
+        
+        .gift-box {
+            font-size: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4facfe, #00c6ff);
+            border-radius: 20px;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+        
+        .gift-media {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .gift-media img,
+        .gift-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        
         .gift-section {
             opacity: 0;
             transform: scale(0);
@@ -860,6 +895,16 @@
             animation: blueShimmer 3s ease infinite;
         }
 
+        /* 🚫 Remove blue gradient from emojis in headings AFTER countdown */
+        .game-header h2 span,
+        .game-over h3 span,
+        .gift-section h2 span,
+        .final-message h2 span {
+            -webkit-text-fill-color: initial !important;
+            background: none !important;
+            -webkit-background-clip: unset !important;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2em;
@@ -949,7 +994,7 @@
                     <span class="time-label">Seconds</span>
                 </div>
             </div>
-            <button class="game-button" id="playGameBtn">🎮 Play a Game With Me!</button>
+            <button class="game-button" id="playGameBtn">🎮 Its GAME TIME BABY!</button>
         </div>
 
         <!-- Game section -->
@@ -958,7 +1003,7 @@
                 <h2>
                 <span>💕</span> Whack-a-soldier! <span>💕</span>
                 </h2>
-                <p style="color: #636e72; margin-top: 10px;">Whack ur soldier BOSS!</p>
+                <p style="color: #636e72; margin-top: 10px;">I am at your service!</p>
             </div>
             <div class="game-stats">
                 <div>Score: <span id="score">0</span></div>
@@ -985,33 +1030,52 @@
         </div>
 
         <!-- Gift section -->
-        <div class="gift-section" id="giftSection">
-            <h2>
-                <span>🎁</span> Gifts for my Rasmalai <span>🎁</span>
-            </h2>
-            <p>No better time to open these other than NOW!</p>
-            <div class="gifts-container">
-                <div class="gift-box" data-gift="0">
+        <div class="gifts-container">
+
+            <!-- GIFT 1 : PHOTO -->
+            <div class="gift-wrapper" onclick="openGift(this)">
+                <div class="gift-box">
                     <div class="gift-wrap">
                         <span class="gift-emoji">🎁</span>
                     </div>
                     <div class="gift-label">Gift 1</div>
                 </div>
-                <div class="gift-box" data-gift="1">
+        
+                <div class="gift-media">
+                    <img src="giftphoto1.jpeg" alt="Gift Photo 1">
+                </div>
+            </div>
+        
+            <!-- GIFT 2 : PHOTO -->
+            <div class="gift-wrapper" onclick="openGift(this)">
+                <div class="gift-box">
                     <div class="gift-wrap">
                         <span class="gift-emoji">🎁</span>
                     </div>
                     <div class="gift-label">Gift 2</div>
                 </div>
-                <div class="gift-box" data-gift="2">
+                    <video src="giftvideo.mp4" controls autoplay loop></video>
+                <div class="gift-media">
+                    
+                </div>
+            </div>
+        
+            <!-- GIFT 3 : VIDEO -->
+            <div class="gift-wrapper" onclick="openGift(this)">
+                <div class="gift-box">
                     <div class="gift-wrap">
                         <span class="gift-emoji">🎁</span>
                     </div>
                     <div class="gift-label">Gift 3</div>
                 </div>
+        
+                <div class="gift-media">
+                    <img src="giftphoto2.jpeg" alt="Gift Photo 2">
+                </div>
             </div>
-            <div id="giftContents"></div>
+        
         </div>
+
 
         <!-- Final message -->
         <div class="final-message" id="finalMessage">
@@ -1282,5 +1346,20 @@
             });
         });
     </script>
+    <script>
+        function openGift(wrapper) {
+            const box = wrapper.querySelector('.gift-box');
+            const media = wrapper.querySelector('.gift-media');
+        
+            box.style.opacity = '0';
+            box.style.transform = 'scale(0.5)';
+        
+            setTimeout(() => {
+                box.style.display = 'none';
+                media.style.display = 'block';
+            }, 400);
+        }
+    </script>
+
 </body>
 </html>
