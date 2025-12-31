@@ -542,7 +542,7 @@
             position: relative;
             width: 200px;
             height: 200px;
-            cursor: pointer;
+            cursor: none;
         }
         
         .gift-box-outer {
@@ -916,6 +916,18 @@
             -webkit-text-fill-color: initial !important;
             filter: none !important;
         }
+
+        * {
+            cursor: none !important;
+        }
+
+        .gift-wrapper,
+        .gift-box-outer,
+        .gift-wrap,
+        .gift-media {
+            cursor: none !important;
+        }
+
 
         @media (max-width: 768px) {
             h1 {
@@ -1345,7 +1357,7 @@
     </script>
     <script>
         function openGift(wrapper) {
-            const box = wrapper.querySelector('.gift-box');
+            const box = wrapper.querySelector('.gift-box-outer');
             const media = wrapper.querySelector('.gift-media');
         
             box.style.opacity = '0';
@@ -1354,8 +1366,11 @@
             setTimeout(() => {
                 box.style.display = 'none';
                 media.style.display = 'block';
+                media.style.width = '180px';
+                media.style.height = '180px';
             }, 400);
         }
+
     </script>
 
 </body>
