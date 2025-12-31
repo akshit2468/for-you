@@ -851,10 +851,6 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.15);
         }
         
-        .time-number {
-            color: #fff; /* makes numbers stand out */
-        }
-        
         /* 🎮 Buttons with shiny blue gradient */
         .game-button,
         .play-again-btn {
@@ -888,14 +884,6 @@
         .container {
             position: relative;
             z-index: 10; /* ensures content is above hearts */
-        }
-        
-        .time-number {
-            background: linear-gradient(135deg, #4facfe, #00c6ff, #00f2fe);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: blueShimmer 3s ease infinite;
         }
 
         /* 🚫 Remove blue gradient from emojis in headings AFTER countdown */
@@ -934,11 +922,6 @@
         .emoji {
             color: initial;
             filter: none;
-        }
-
-        #timeLeft {
-            color: white;
-            text-shadow: 0 0 10px rgba(255,255,255,0.6);
         }
 
         @media (max-width: 768px) {
