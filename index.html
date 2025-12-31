@@ -543,20 +543,19 @@
             width: 200px;
             height: 200px;
             cursor: none;
+            isolation: isolate;
         }
         
         .gift-box-outer {
-            font-size: 4rem;
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #4facfe, #00c6ff);
-            border-radius: 20px;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.3s ease, opacity 0.4s ease;
+            background: none;
+            border-radius: 0;
         }
-        
+
         .gift-media {
             display: none;
             width: 100%;
@@ -928,6 +927,10 @@
             cursor: none !important;
         }
 
+        .emoji {
+            color: initial;
+            filter: none;
+        }
 
         @media (max-width: 768px) {
             h1 {
@@ -1055,7 +1058,11 @@
 
         <!-- Gift section -->
         <div class="gift-section" id="giftSection">
-            <h2>🎁 Gifts for You 🎁</h2>
+            <h2>
+            <span class="emoji">🎁</span>
+            Gifts for You
+            <span class="emoji">🎁</span>
+            </h2>
             <p>Tap each gift 💙</p>
         
             <div class="gifts-container">
