@@ -605,13 +605,16 @@
         .gifts-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 30px;
+            gap: 40px;
             margin-bottom: 30px;
         }
 
         .gift-box {
             cursor: none;
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .gift-box:hover {
@@ -619,8 +622,8 @@
         }
 
         .gift-wrap {
-            width: 180px;
-            height: 180px;
+            width: 200px;
+            height: 200px;
             margin: 0 auto;
             background: linear-gradient(135deg, #ff9ff3 0%, #feca57 100%);
             border-radius: 15px;
@@ -661,8 +664,9 @@
         }
 
         .gift-label {
+            margin-top: 12px;
             text-align: center;
-            margin-top: 15px;
+            width: 100%;
             font-size: 1.2em;
             color: #2d3436;
             font-weight: bold;
