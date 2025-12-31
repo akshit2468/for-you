@@ -1035,7 +1035,7 @@
         </div>
 
         <!-- Gift section -->
-        <div class="gift-section show" id="giftSection">
+        <div class="gift-section" id="giftSection">
             <h2>🎁 Gifts for You 🎁</h2>
             <p>Tap each gift 💙</p>
         
@@ -1303,7 +1303,7 @@
             }
         }
 
-        function endGame() {
+       function endGame() {
             gameActive = false;
             clearInterval(gameInterval);
             clearInterval(countdownInterval);
@@ -1317,11 +1317,20 @@
             } else {
                 gameOverMessage.textContent = "You're still perfect to me! 💗";
             }
-
+        
             setTimeout(() => {
                 finalMessage.classList.add('show');
             }, 1000);
+        
+            /* 🔽 ADD THIS PART (THIS IS THE FIX) */
+            setTimeout(() => {
+                document.getElementById('giftSection').classList.add('show');
+                document.getElementById('giftSection').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }, 2200);
         }
+
 
         function resetGame() {
             gameOver.classList.remove('show');
