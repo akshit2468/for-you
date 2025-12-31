@@ -545,7 +545,7 @@
             cursor: pointer;
         }
         
-        .gift-box {
+        .gift-box-outer {
             font-size: 4rem;
             display: flex;
             align-items: center;
@@ -554,7 +554,7 @@
             border-radius: 20px;
             width: 100%;
             height: 100%;
-            transition: transform 0.4s ease, opacity 0.4s ease;
+            transition: transform 0.3s ease, opacity 0.4s ease;
         }
         
         .gift-media {
@@ -909,6 +909,13 @@
             background: black;
         }
 
+        .gift-section h2 span,
+        .gift-emoji {
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            -webkit-text-fill-color: initial !important;
+            filter: none !important;
+        }
 
         @media (max-width: 768px) {
             h1 {
@@ -1043,7 +1050,7 @@
         
                 <!-- GIFT 1 : PHOTO -->
                 <div class="gift-wrapper" onclick="openGift(this)">
-                    <div class="gift-box">
+                    <div class="gift-box-outer">
                         <div class="gift-wrap">
                             <span class="gift-emoji">🎁</span>
                         </div>
@@ -1057,7 +1064,7 @@
         
                 <!-- GIFT 2 : VIDEO -->
                 <div class="gift-wrapper" onclick="openGift(this)">
-                    <div class="gift-box">
+                    <div class="gift-box-outer">
                         <div class="gift-wrap">
                             <span class="gift-emoji">🎁</span>
                         </div>
@@ -1071,7 +1078,7 @@
         
                 <!-- GIFT 3 : PHOTO -->
                 <div class="gift-wrapper" onclick="openGift(this)">
-                    <div class="gift-box">
+                    <div class="gift-box-outer">
                         <div class="gift-wrap">
                             <span class="gift-emoji">🎁</span>
                         </div>
@@ -1256,7 +1263,7 @@
                 this.classList.remove('up');
                 score++;
                 scoreDisplay.textContent = score;
-                gameMessage.textContent = ['Amazing!', 'Perfect!', 'Love it!', 'Yes!'][Math.floor(Math.random() * 4)];
+                gameMessage.textContent = ['Ohh Betee!', 'Moj kardi!', 'Love it!', 'Waoo!'][Math.floor(Math.random() * 4)];
                 
                 setTimeout(() => {
                     this.classList.remove('hit');
@@ -1271,18 +1278,13 @@
             timeLeft = 30;
             scoreDisplay.textContent = '0';
             timeLeftDisplay.textContent = '30';
-            gameMessage.textContent = 'Go! Catch the hearts!';
+            gameMessage.textContent = 'Whack your soldier BOSS LADY!';
             
             setTimeout(() => {
                 gameActive = true;
                 gameInterval = setInterval(popUpMole, 800);
                 countdownInterval = setInterval(updateTimer, 1000);
             }, 1000);
-
-            setTimeout(() => {
-                giftSection.classList.add('show');
-            }, 2000);
-        }
 
         function popUpMole() {
             moles.forEach(mole => mole.classList.remove('up'));
